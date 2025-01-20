@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Slider, { SliderThumb } from '@mui/material/Slider';
+import Slider from '@mui/material/Slider';
+import BasicThumbComponent from './BasicThumbComponent';
 
 function DiveDifficulty() {
 
@@ -18,20 +19,6 @@ function DiveDifficulty() {
         pr: 2,
         pt: 1
     } as const;
-
-    interface BasicSliderThumbComponentProps extends React.HTMLAttributes<unknown> {}
-
-    function BasicThumbComponent(props: BasicSliderThumbComponentProps) {
-        const { children, ...other } = props;
-        return (
-            <SliderThumb {...other}>
-            {children}
-            <span className="slider-bar" />
-            <span className="slider-bar" />
-            <span className="slider-bar" />
-            </SliderThumb>
-        );
-    }
 
     return (
         <Box sx={boxDiveDifficultyStyle}>
