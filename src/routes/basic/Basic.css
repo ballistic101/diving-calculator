@@ -1,0 +1,50 @@
+.MuiSlider-root {
+    padding-top: 4em;
+}
+
+.MuiSlider-valueLabel {
+    font-size: 0.8em;
+    font-weight: 500;
+    top: -6px;
+    background-color: transparent;
+    color: black;
+}
+
+.MuiSlider-valueLabel:before {
+    display: 'none';
+}
+
+/*
+.MuiSlider-valueLabel * {
+    background: 'transparent';
+    color: white;
+}
+*/
+
+.MuiSlider-thumb {
+    height: 27px;
+    width: 27px;
+    background-color: white;
+    border: '1px solid currentColor';
+}
+
+.MuiSlider-thumb:hover {
+    box-shadow: '0 0 0 8px rgba(58, 133, 137, 0.16)';
+}
+
+.MuiSlider-thumb .slider-bar {
+    height: 9px;
+    width: 1px;
+    color: black;
+    background-color: currentColor;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+#dive-score-1 {
+    color: rgb(29, 133, 36);
+}
+
+#dive-score-2 {
+    color: rgb(114, 106, 15);
+}
