@@ -13,6 +13,7 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, 'src'),
       '@components': path.resolve(__dirname, 'src/components'),
+      '@models': path.resolve(__dirname, 'src/models'),
       '@routes': path.resolve(__dirname, 'src/routes'),
       path: 'rollup-plugin-node-polyfills/polyfills/path',
     }

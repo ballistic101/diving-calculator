@@ -8,12 +8,13 @@ function App() {
 
   return (
     <>
-    <div>Mike was here.</div>
+    <div className="main">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/basic" element={<Basic />} /> 
         <Route path="*" element={<NoMatch />} />
       </Routes>
+    </div>
     </>
   )
 }

@@ -3,10 +3,20 @@ import Typography from '@mui/material/Typography';
 import Slider from '@mui/material/Slider';
 import BasicThumbComponent from './BasicThumbComponent';
 
-function DiveDifficulty() {
+interface Props {
+    value: number;
+    onChange: (difficulty: number) => void;
+}
+
+function DiveDifficulty({value, onChange}: Props) {
 
     function valuetext(value: number) {
         return `${value}`;
+    }
+
+    const handleChange = (_event: Event, newValue: number | number[]) => {
+        let value = (Array.isArray(newValue)) ? newValue[0] : newValue;
+        onChange(value);
     }
 
     const boxDiveDifficultyStyle = {
@@ -30,10 +40,11 @@ function DiveDifficulty() {
                 min={1.0}
                 max={3.4}
                 step={0.1}
-                defaultValue={1.5}
+                value={value}
                 valueLabelDisplay="on"
                 getAriaValueText={valuetext}
                 slots={{ thumb: BasicThumbComponent }}
+                onChange={handleChange}
             />
         </Box>
     );

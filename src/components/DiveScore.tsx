@@ -1,4 +1,4 @@
-import Box, { BoxProps } from '@mui/material/Box';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Slider from '@mui/material/Slider';
 import BasicThumbComponent from './BasicThumbComponent';
@@ -6,56 +6,47 @@ import BasicThumbComponent from './BasicThumbComponent';
 interface Props {
     title: string;
     id: string;
+    value: number;
+    onChange: (event: Event, newValue: number | number[]) => void;
 }
 
-function DiveScore({title, id}: Props) {
+function DiveScore({title, id, value, onChange}: Props) {
 
-    function Item(props: BoxProps) {
-        const { sx, ...other } = props;
-        return (
-          <Box
-            sx={[
-              (theme) => ({
-                bgcolor: '#fff',
-                color: 'grey.800',
-                border: '1px solid',
-                borderColor: 'grey.300',
-                p: 1,
-                m: 1,
-                borderRadius: 2,
-                fontSize: '0.875rem',
-                fontWeight: '700',
-                ...theme.applyStyles('dark', {
-                  bgcolor: '#101010',
-                  color: 'grey.300',
-                  borderColor: 'grey.800',
-                }),
-              }),
-              ...(Array.isArray(sx) ? sx : [sx]),
-            ]}
-            {...other}
-          />
-        );
+    function valuetext(value: number) {
+        return `${value}`;
     }
+
+    const ItemDiveScoreStyle = {
+        display: "grid",
+        gridTemplateColumns: 'repeat(2, 1fr)',
+        m: 2,
+        border: 1,
+        borderRadius: 2,
+        boxShadow: 1,
+        pl: 2,
+        pr: 2,
+        pt: 1
+    } as const;
 
     return (
         <>
-        <Item>
+        <Box sx={ItemDiveScoreStyle}>
             <Typography id={id} gutterBottom>
                 {title}
             </Typography>
-        </Item>
-        <Item>
             <Slider id={id}
                 aria-label={title}
                 min={0}
                 max={10}
                 step={0.5}
-                defaultValue={0}
+                value={value}
                 valueLabelDisplay="on"
+                getAriaValueText={valuetext}
                 slots={{ thumb: BasicThumbComponent }}
+                onChange={onChange}
             />
-        </Item>
+
+        </Box>
         </>
     );
 }
