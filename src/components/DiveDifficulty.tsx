@@ -20,14 +20,14 @@ function DiveDifficulty({value, onChange}: Props) {
     }
 
     const boxDiveDifficultyStyle = {
+        display: "grid",
+        gridTemplateColumns: '1fr 2fr',
         m: 2,
-        border: 1,
-        borderRadius: 2,
-        boxShadow: 1,
-        width: "80%",
         pl: 2,
         pr: 2,
-        pt: 1
+        pt: 5,
+        pb: 2,
+        bgcolor: '#acf9fb'
     } as const;
 
     return (
@@ -37,7 +37,7 @@ function DiveDifficulty({value, onChange}: Props) {
             </Typography>
             <Slider
                 aria-label="Dive Difficulty"
-                min={1.0}
+                min={1.4}
                 max={3.4}
                 step={0.1}
                 value={value}

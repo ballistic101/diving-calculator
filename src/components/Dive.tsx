@@ -1,3 +1,4 @@
+import Box from '@mui/material/Box';
 import DiveDifficulty from "./DiveDifficulty";
 import DiveScores from "./DiveScores";
 import { DiveStats } from "@models/DiveStats";
@@ -34,11 +35,25 @@ function Dive({id, dive, onChange}: Props) {
         onChange(id, newDive);
     }
 
+    const boxDiveStyle = {
+        display: "grid",
+        gridTemplateColumns: '1fr',
+        m: 2,
+        border: 1,
+        borderRadius: 2,
+        borderColor: 'rgb(53, 95, 163)',
+        boxShadow: 3,
+        bgcolor: 'rgb(215, 214, 229, 0.2)',
+        pl: 2,
+        pr: 2,
+        pt: 3
+    } as const;
+
     return (
-        <div className="Dive">
+        <Box sx={boxDiveStyle}>
             <DiveDifficulty value={dive.difficulty} onChange={handleDifficultyChange} />
             <DiveScores onChange={handleScoreChange} />
-        </div>
+        </Box>
     );
 }
 

@@ -18,14 +18,11 @@ function DiveScore({title, id, value, onChange}: Props) {
 
     const ItemDiveScoreStyle = {
         display: "grid",
-        gridTemplateColumns: 'repeat(2, 1fr)',
+        gridTemplateColumns: '1fr 2fr',
         m: 2,
-        border: 1,
-        borderRadius: 2,
-        boxShadow: 1,
         pl: 2,
         pr: 2,
-        pt: 1
+        pt: 3
     } as const;
 
     return (

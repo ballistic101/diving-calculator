@@ -11,7 +11,6 @@ function DiveScores({onChange}: Props) {
     const [diveScore1, setDiveScore1] = useState<number>(0.0);
     const [diveScore2, setDiveScore2] = useState<number>(0.0);
     const [diveScore3, setDiveScore3] = useState<number>(0.0);
-    const sum = diveScore1 + diveScore2 + diveScore3;
 
     const handleChange1 = (_event: Event, newValue: number | number[]) => {
         let value = Array.isArray(newValue) ? newValue[0] : newValue;
@@ -33,9 +32,6 @@ function DiveScores({onChange}: Props) {
 
     const boxDiveScoreStyle = {
         m: 2,
-        border: 1,
-        borderRadius: 2,
-        width: "80%"
     } as const;
 
     return (

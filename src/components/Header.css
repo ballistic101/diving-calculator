@@ -1,0 +1,12 @@
+.header {
+    display: table;
+    height: 5rem;
+    width: 100%;
+    background-color: rgb(53, 95, 163);
+    color: white;
+}
+
+.header > h1 {
+    vertical-align: middle;
+    align-content: center;
+}

@@ -6,7 +6,7 @@
 }
 
 body {
-  background: url('./assets/waves.png');
+  background: url('./assets/waves.png') no-repeat bottom center;
 }
 
 .logo {
