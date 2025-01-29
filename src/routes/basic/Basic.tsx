@@ -17,6 +17,7 @@ function Basic() {
         display: "grid",
         gridTemplateColumns: 'repeat(2, 1fr)',
         m: 2,
+        mb: 3,
         pl: 2,
         pr: 2,
         pt: 1
@@ -49,8 +50,8 @@ function Basic() {
         </div>
         <Dive id="1" dive={diveStats} onChange={setStats} />
         <Box sx={DiveBoxScoreStyle}>
-            <Box sx={DiveSumStyle}>Sum: <b>{diveStats.sum}</b></Box>
-            <Box sx={DiveFinalStyle}>Final Score: <b>{finalRounded}</b></Box>
+            <Box sx={DiveSumStyle}>Sum: <span className="dive-value">{diveStats.sum}</span></Box>
+            <Box sx={DiveFinalStyle}>Final Score: <span className="dive-value">{finalRounded}</span></Box>
         </Box>
         </>
     );

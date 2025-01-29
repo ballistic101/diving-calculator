@@ -48,3 +48,12 @@
 #dive-score-2 {
     color: rgb(114, 106, 15);
 }
+
+.dive-value {
+    display: inline-block;
+    font-weight: bold;
+    font-size:medium;
+    width: 3rem;
+    text-align: left;
+    margin-left: 0.4rem;
+}
