@@ -22,6 +22,24 @@ function Basic() {
         pt: 1
     } as const;
 
+    const DiveSumStyle = {
+        pl: 2,
+        pr: 2,
+        pt: 1,
+        pb: 1,
+        mr: 2,
+        bgcolor: "rgb(238, 219, 94)"
+    } as const;
+
+    const DiveFinalStyle = {
+        ml: 2,
+        pl: 2,
+        pr: 2,
+        pt: 1,
+        pb: 1,
+        bgcolor: "rgb(234, 157, 157)"
+    } as const;
+
     const finalRounded = Math.round(diveStats.final * 1000) / 1000;
     return (
         <>
@@ -31,7 +49,8 @@ function Basic() {
         </div>
         <Dive id="1" dive={diveStats} onChange={setStats} />
         <Box sx={DiveBoxScoreStyle}>
-            <p>Score = Sum ({diveStats.sum}) x Difficulty ({diveStats.difficulty}), which is {finalRounded}</p>
+            <Box sx={DiveSumStyle}>Sum: <b>{diveStats.sum}</b></Box>
+            <Box sx={DiveFinalStyle}>Final Score: <b>{finalRounded}</b></Box>
         </Box>
         </>
     );

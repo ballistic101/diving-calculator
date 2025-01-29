@@ -27,7 +27,10 @@ function DiveDifficulty({value, onChange}: Props) {
         pr: 2,
         pt: 5,
         pb: 2,
-        bgcolor: '#acf9fb'
+        bgcolor: '#acf9fb',
+        border: 1,
+        boxShadow: 1,
+        borderColor: 'rgb(77, 165, 184)'
     } as const;
 
     return (
