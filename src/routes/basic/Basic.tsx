@@ -1,7 +1,6 @@
 import './Basic.css';
 import Box from '@mui/material/Box';
-import { useEffect, useState } from 'react';
-import Typography from '@mui/material/Typography';
+import { useState } from 'react';
 import Dive from '@components/Dive';
 import { DiveStats } from "@models/DiveStats";
 
