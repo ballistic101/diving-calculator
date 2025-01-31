@@ -1,8 +1,8 @@
 import './Basic.css';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
-import Dive from '@components/Dive';
-import { DiveStats } from "@models/DiveStats";
+import Dive from '../../components/Dive';
+import { DiveStats } from "../../models/DiveStats";
 
 function Basic() {
 
@@ -11,6 +11,8 @@ function Basic() {
     const setStats = (_id: number, dive: DiveStats) => {
         setDiveStats(dive);
     }
+
+    const identifier = 1;
 
     const DiveBoxScoreStyle = {
         display: "grid",
@@ -47,7 +49,7 @@ function Basic() {
             <p>Welcome to the basic version of the app. This is a quick
             calculator that does not depend on a team being defined.</p>
         </div>
-        <Dive id="1" dive={diveStats} onChange={setStats} />
+        <Dive identifier={identifier} dive={diveStats} onChange={setStats} />
         <Box sx={DiveBoxScoreStyle}>
             <Box sx={DiveSumStyle}>Sum: <span className="dive-value">{diveStats.sum}</span></Box>
             <Box sx={DiveFinalStyle}>Final Score: <span className="dive-value">{finalRounded}</span></Box>

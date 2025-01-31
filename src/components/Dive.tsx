@@ -1,15 +1,15 @@
 import Box from '@mui/material/Box';
 import DiveDifficulty from "./DiveDifficulty";
 import DiveScores from "./DiveScores";
-import { DiveStats } from "@models/DiveStats";
+import { DiveStats } from "../models/DiveStats";
 
 interface Props {
-    id: number;
+    identifier: number;
     dive: DiveStats;
     onChange: (id: number, dive: DiveStats) => void;
 }
 
-function Dive({id, dive, onChange}: Props) {
+function Dive({identifier, dive, onChange}: Props) {
 
     const handleDifficultyChange = (newValue: number) => {
         const newDive: DiveStats = {
@@ -20,7 +20,7 @@ function Dive({id, dive, onChange}: Props) {
             sum: dive.sum,
             final: newValue * dive.sum
         }
-        onChange(id, newDive);
+        onChange(identifier, newDive);
     };
 
     const handleScoreChange = (score1: number, score2: number, score3: number, sum: number) => {
@@ -32,7 +32,7 @@ function Dive({id, dive, onChange}: Props) {
             sum: sum,
             final: dive.difficulty * sum
         }
-        onChange(id, newDive);
+        onChange(identifier, newDive);
     }
 
     const boxDiveStyle = {

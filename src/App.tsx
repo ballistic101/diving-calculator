@@ -1,9 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
-import Home from '@routes/home/Home';
-import Basic from '@routes/basic/Basic';
-import NoMatch from '@routes/no-match/NoMatch';
-import Header from '@components/Header';
-import Footer from '@components/Footer';
+import Home from './routes/home/Home';
+import Basic from './routes/basic/Basic';
+import NoMatch from './routes/no-match/NoMatch';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import './App.css'
 
 function App() {

@@ -1,6 +1,6 @@
-import ErrorPage from '@routes/error-page/ErrorPage';
-import Root from '@routes/root/Root';
-import Home from '@routes/home/Home';
+import ErrorPage from './error-page/ErrorPage';
+import Root from './root/Root';
+import Home from './home/Home';
 import { createBrowserRouter } from 'react-router-dom';
 
 export const routes = createBrowserRouter([
