@@ -21,8 +21,11 @@ function DiveDifficulty({value, onChange}: Props) {
 
     const boxDiveDifficultyStyle = {
         display: "grid",
-        gridTemplateColumns: '1fr 2fr',
-        m: 2,
+        gridTemplateColumns: '1fr 5fr',
+        mt: 2,
+        mb: 2,
+        ml: 1,
+        mr: 1,
         pl: 2,
         pr: 2,
         pt: 5,

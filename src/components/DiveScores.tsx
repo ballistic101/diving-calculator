@@ -31,7 +31,8 @@ function DiveScores({onChange}: Props) {
     }
 
     const boxDiveScoreStyle = {
-        m: 2,
+        mt: 2,
+        mb: 2
     } as const;
 
     return (

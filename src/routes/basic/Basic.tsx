@@ -17,7 +17,7 @@ function Basic() {
     const DiveBoxScoreStyle = {
         display: "grid",
         gridTemplateColumns: 'repeat(2, 1fr)',
-        m: 2,
+        mt: 2,
         mb: 3,
         pl: 2,
         pr: 2,

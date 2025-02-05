@@ -38,7 +38,8 @@ function Dive({identifier, dive, onChange}: Props) {
     const boxDiveStyle = {
         display: "grid",
         gridTemplateColumns: '1fr',
-        m: 2,
+        mt: 2,
+        mb: 2,
         border: 1,
         borderRadius: 2,
         borderColor: 'rgb(53, 95, 163)',
