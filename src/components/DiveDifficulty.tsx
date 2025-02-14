@@ -43,7 +43,7 @@ function DiveDifficulty({value, onChange}: Props) {
             </Typography>
             <Slider
                 aria-label="Dive Difficulty"
-                min={1.4}
+                min={1.2}
                 max={3.4}
                 step={0.1}
                 value={value}
