@@ -80,6 +80,14 @@ export const DiveTypes: { [key: string]: DiveType } = {
         group: DiveGroup.Forward,
         difficulty: 2.3
     },
+    "104a": {
+        name: "Forward 2 Somersaults",
+        number: 104,
+        style: DiveStyle.Straight,
+        group: DiveGroup.Forward,
+        difficulty: 2.6
+    },
+
     "105c": {
         name: "Forward 2-1/2 Somersaults",
         number: 105,
@@ -318,6 +326,13 @@ export const DiveTypes: { [key: string]: DiveType } = {
         group: DiveGroup.Reverse,
         difficulty: 2.4
     },
+    "304a": {
+        name: "Reverse Dive 2 Somersaults",
+        number: 304,
+        style: DiveStyle.Straight,
+        group: DiveGroup.Reverse,
+        difficulty: 2.9
+    },
     "305c": {
         name: "Reverse Dive 2-1/2 Somersaults",
         number: 305,
@@ -366,6 +381,13 @@ export const DiveTypes: { [key: string]: DiveType } = {
         style: DiveStyle.Pike,
         group: DiveGroup.Inward,
         difficulty: 1.7
+    },
+    "402a": {
+        name: "Inward Dive - 1 Somersault",
+        number: 402,
+        style: DiveStyle.Straight,
+        group: DiveGroup.Inward,
+        difficulty: 2.0
     },
     "403c": {
         name: "Inward Dive - 1-1/2 Somersaults",
