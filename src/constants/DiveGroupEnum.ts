@@ -1,7 +1,7 @@
 export enum DiveGroup {
-    Forward,
-    Back,
-    Reverse,
-    Inward,
-    Twist
+    Forward = "forward",
+    Back = "back",
+    Reverse = "reverse",
+    Inward = "inward",
+    Twist = "twist"
 }

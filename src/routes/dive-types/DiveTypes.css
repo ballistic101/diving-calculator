@@ -1,0 +1,34 @@
+.dive-types > table {
+    border-collapse: collapse;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.dive-types > table th,
+.dive-types > table td {
+    border: 1px solid darkgray;
+}
+
+.dive-types > table th {
+    background-color: rgb(228, 226, 226);
+}
+
+.dive-type-row-forward {
+    background-color: lightpink;
+}
+
+.dive-type-row-back {
+    background-color: lightyellow;
+}
+
+.dive-type-row-reverse {
+    background-color: lightsteelblue;
+}
+
+.dive-type-row-inward {
+    background-color: antiquewhite;
+}
+
+.dive-type-row-twist {
+    background-color: lightblue;
+}

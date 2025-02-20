@@ -1,6 +1,6 @@
 export enum DiveStyle {
-    Tuck = "C",
-    Pike = "B",
-    Straight = "A",
-    Free = "D"
+    Tuck = "Tuck",
+    Pike = "Pike",
+    Straight = "Straight",
+    Free = "Free"
 }

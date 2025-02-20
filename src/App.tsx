@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Home from './routes/home/Home';
 import Basic from './routes/basic/Basic';
+import DiveTypes from './routes/dive-types/DiveTypes';
 import NoMatch from './routes/no-match/NoMatch';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -13,7 +14,8 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/basic" element={<Basic />} /> 
+        <Route path="/basic" element={<Basic />} />
+        <Route path="/dive-types" element={<DiveTypes />} />  
         <Route path="*" element={<NoMatch />} />
       </Routes>
       <Footer/>

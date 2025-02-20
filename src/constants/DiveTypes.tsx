@@ -1,6 +1,13 @@
-import { DiveType } from "../models/DiveType";
 import { DiveStyle } from "../constants/DiveStyleEnum";
 import { DiveGroup } from "../constants/DiveGroupEnum";
+
+export interface DiveType {
+    name: string;
+    number: number;
+    style: DiveStyle;
+    group: DiveGroup;
+    difficulty: number;
+}
 
 export const DiveTypes: { [key: string]: DiveType } = {
     "101c": {
