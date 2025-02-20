@@ -13,22 +13,46 @@
     background-color: rgb(228, 226, 226);
 }
 
+.dive-types > table th {
+    padding: .5rem;
+}
+
 .dive-type-row-forward {
-    background-color: lightpink;
+    background: linear-gradient(to bottom right, #ffe6e6, lightpink);
+}
+
+.dive-type-row-forward:hover {
+    background: linear-gradient(to bottom right, #ffcccc, #ff9999);
 }
 
 .dive-type-row-back {
-    background-color: lightyellow;
+    background: linear-gradient(to bottom right, #fffff0, lightyellow);
+}
+
+.dive-type-row-back:hover {
+    background: linear-gradient(to bottom right, #ffffe0, #ffff99);
 }
 
 .dive-type-row-reverse {
-    background-color: lightsteelblue;
+    background: linear-gradient(to bottom right, #e6f0fa, lightsteelblue);
+}
+
+.dive-type-row-reverse:hover {
+    background: linear-gradient(to bottom right, #cce0f5, #99c2e6);
 }
 
 .dive-type-row-inward {
-    background-color: antiquewhite;
+    background: linear-gradient(to bottom right, #fffaf0, antiquewhite);
+}
+
+.dive-type-row-inward:hover {
+    background: linear-gradient(to bottom right, #fff5e6, #ffe6cc);
 }
 
 .dive-type-row-twist {
-    background-color: lightblue;
+    background: linear-gradient(to bottom right, #d0e7f9, lightblue);
+}
+
+.dive-type-row-twist:hover {
+    background: linear-gradient(to bottom right, #b3d1f2, #80bfff);
 }

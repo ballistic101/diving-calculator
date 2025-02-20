@@ -19,7 +19,7 @@ function DiveTypes() {
                     {Object.entries(AllDiveTypes)
                       .map(([key, diveType]: [string, DiveType]) => (
                          <tr className={`dive-type-row-${diveType.group}`}>
-                            <td>{key}</td>
+                            <td>{key.toUpperCase()}</td>
                             <td>{diveType.name}, {diveType.style}</td>
                             <td>{diveType.difficulty}</td>
                         </tr>
