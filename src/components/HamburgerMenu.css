@@ -1,9 +1,11 @@
 /* HamburgerMenu.css */
+
 .hamburger-container {
   position: relative;
+  z-index: 1000;
 }
 
-.hamburger {
+.hamburger-icon {
   width: 30px;
   cursor: pointer;
   display: flex;
@@ -11,42 +13,54 @@
   justify-content: space-between;
   height: 20px;
   margin: 10px;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1100;
 }
 
-.hamburger span {
+.hamburger-icon span {
   height: 3px;
   background: black;
   border-radius: 2px;
   transition: 0.3s;
 }
 
-.hamburger.open span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-.hamburger.open span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.open span:nth-child(3) {
-  transform: rotate(-45deg) translate(6px, -6px);
-}
-
-.menu {
-  position: absolute;
-  top: 40px;
-  right: 10px;
-  background: white;
-  border: 1px solid #ccc;
-  display: none;
-  flex-direction: column;
-  padding: 10px;
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  height: 100%;
+  width: 250px;
+  background-color: white;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+  transition: left 0.3s ease;
+  padding: 60px 20px;
+  z-index: 1050;
 }
 
-.menu.show {
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar nav {
   display: flex;
+  flex-direction: column;
 }
 
-.menu a {
+.sidebar a {
   text-decoration: none;
-  padding: 5px 0;
+  padding: 15px 0;
   color: black;
+  font-size: 18px;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 1040;
 }

@@ -1,3 +1,4 @@
+// HamburgerMenu.tsx
 import React, { useState } from 'react';
 import './HamburgerMenu.css';
 
@@ -10,17 +11,21 @@ const HamburgerMenu: React.FC = () => {
 
   return (
     <div className="hamburger-container">
-      <div className={`hamburger ${isOpen ? 'open' : ''}`} onClick={toggleMenu}>
+      <div className="hamburger-icon" onClick={toggleMenu}>
         <span />
         <span />
         <span />
       </div>
 
-      <nav className={`menu ${isOpen ? 'show' : ''}`}>
-        <a href="/" onClick={toggleMenu}>Home</a>
-        <a href="#basic" onClick={toggleMenu}>Calculator</a>
-        <a href="#dive-types" onClick={toggleMenu}>Diving Difficulties</a>
-      </nav>
+      <div className={`sidebar ${isOpen ? 'open' : ''}`}>
+        <nav>
+          <a href="/" onClick={toggleMenu}>Home</a>
+          <a href="/basic" onClick={toggleMenu}>Basic Calculator</a>
+          <a href="/dive-types" onClick={toggleMenu}>Dive Difficulties</a>
+        </nav>
+      </div>
+
+      {isOpen && <div className="backdrop" onClick={toggleMenu} />}
     </div>
   );
 };
