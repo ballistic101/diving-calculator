@@ -1,0 +1,52 @@
+/* HamburgerMenu.css */
+.hamburger-container {
+  position: relative;
+}
+
+.hamburger {
+  width: 30px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 20px;
+  margin: 10px;
+}
+
+.hamburger span {
+  height: 3px;
+  background: black;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+.hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+.menu {
+  position: absolute;
+  top: 40px;
+  right: 10px;
+  background: white;
+  border: 1px solid #ccc;
+  display: none;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.menu.show {
+  display: flex;
+}
+
+.menu a {
+  text-decoration: none;
+  padding: 5px 0;
+  color: black;
+}
