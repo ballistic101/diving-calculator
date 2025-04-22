@@ -1,5 +1,6 @@
 // HamburgerMenu.tsx
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import './HamburgerMenu.css';
 
 const HamburgerMenu: React.FC = () => {
@@ -19,9 +20,9 @@ const HamburgerMenu: React.FC = () => {
 
       <div className={`sidebar ${isOpen ? 'open' : ''}`}>
         <nav>
-          <a href="/" onClick={toggleMenu}>Home</a>
-          <a href="/basic" onClick={toggleMenu}>Basic Calculator</a>
-          <a href="/dive-types" onClick={toggleMenu}>Dive Difficulties</a>
+          <NavLink to="/" onClick={toggleMenu} className={({ isActive }) => isActive ? 'active' : ''}>Home</NavLink>
+          <NavLink to="/basic" onClick={toggleMenu} className={({ isActive }) => isActive ? 'active' : ''}>Basic Calculator</NavLink>
+          <NavLink to="/dive-types" onClick={toggleMenu} className={({ isActive }) => isActive ? 'active' : ''}>Dive Difficulties</NavLink>
         </nav>
       </div>
 
