@@ -3,30 +3,25 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './HamburgerMenu.css';
 
-const HamburgerMenu: React.FC = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+interface HamburgerMenuProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
 
-  const toggleMenu = () => {
-    setIsOpen(prev => !prev);
-  };
+function HamburgerMenu({isOpen, onClose}: HamburgerMenuProps) {
 
   return (
     <div className="hamburger-container">
-      <div className="hamburger-icon" onClick={toggleMenu}>
-        <span />
-        <span />
-        <span />
-      </div>
-
       <div className={`sidebar ${isOpen ? 'open' : ''}`}>
+        <button className="close-btn" onClick={onClose}>←</button>
         <nav>
-          <NavLink to="/" onClick={toggleMenu} className={({ isActive }) => isActive ? 'active' : ''}>Home</NavLink>
-          <NavLink to="/basic" onClick={toggleMenu} className={({ isActive }) => isActive ? 'active' : ''}>Basic Calculator</NavLink>
-          <NavLink to="/dive-types" onClick={toggleMenu} className={({ isActive }) => isActive ? 'active' : ''}>Dive Difficulties</NavLink>
+          <NavLink to="/" onClick={onClose} className={({ isActive }) => isOpen ? 'active' : ''}>Home</NavLink>
+          <NavLink to="/basic" onClick={onClose} className={({ isActive }) => isOpen ? 'active' : ''}>Basic Calculator</NavLink>
+          <NavLink to="/dive-types" onClick={onClose} className={({ isActive }) => isOpen ? 'active' : ''}>Dive Difficulties</NavLink>
         </nav>
       </div>
 
-      {isOpen && <div className="backdrop" onClick={toggleMenu} />}
+      {isOpen && <div className="backdrop" onClick={onClose} />}
     </div>
   );
 };

@@ -1,12 +1,20 @@
 import "./Header.css";
-import HamburgerMenu from './HamburgerMenu';
 
-function Header() {
+interface HeaderProps {
+  onMenuClick: () => void;
+}
+
+function Header({onMenuClick}: HeaderProps) {
+
 
     return (
         <div>
-            <HamburgerMenu />
             <div className="header">
+                <div className="hamburger-icon" onClick={onMenuClick}>
+                    <span />
+                    <span />
+                    <span />
+                 </div>
                 <h1>Diving Calculator</h1>
             </div>
         </div>
