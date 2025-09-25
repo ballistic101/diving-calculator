@@ -41,14 +41,6 @@
     margin-right: 1px;
 }
 
-#dive-score-1 {
-    color: rgb(29, 133, 36);
-}
-
-#dive-score-2 {
-    color: rgb(114, 106, 15);
-}
-
 .dive-value {
     display: inline-block;
     font-weight: bold;

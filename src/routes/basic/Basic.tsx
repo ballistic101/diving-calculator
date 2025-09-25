@@ -30,7 +30,7 @@ function Basic() {
         pt: 1,
         pb: 1,
         mr: 2,
-        bgcolor: "rgb(238, 219, 94)"
+        bgcolor: "rgba(250, 188, 42, 1)"
     } as const;
 
     const DiveFinalStyle = {
@@ -39,7 +39,7 @@ function Basic() {
         pr: 2,
         pt: 1,
         pb: 1,
-        bgcolor: "rgb(234, 157, 157)"
+        bgcolor: "rgba(255, 92, 127, 0.8)"
     } as const;
 
     const finalRounded = Math.round(diveStats.final * 1000) / 1000;
@@ -49,11 +49,12 @@ function Basic() {
             <p>Welcome to the basic version of the app. This is a quick
             calculator that does not depend on a team being defined.</p>
         </div>
-        <Dive identifier={identifier} dive={diveStats} onChange={setStats} />
         <Box sx={DiveBoxScoreStyle}>
             <Box sx={DiveSumStyle}>Sum: <span className="dive-value">{diveStats.sum}</span></Box>
             <Box sx={DiveFinalStyle}>Final Score: <span className="dive-value">{finalRounded}</span></Box>
         </Box>
+
+        <Dive identifier={identifier} dive={diveStats} onChange={setStats} />
         </>
     );
 }

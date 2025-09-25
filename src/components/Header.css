@@ -21,13 +21,12 @@
   margin: 10px;
   top: 20px;
   left: 20px;
-  background-color: rgb(93, 135, 203);
   padding: 2px;
 }
 
 .hamburger-icon span {
   height: 3px;
-  background: black;
+  background: white;
   border-radius: 2px;
   transition: 0.3s;
 }
