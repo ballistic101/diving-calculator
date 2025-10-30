@@ -1,58 +1,90 @@
-.dive-types > table {
+.dive-types h2 {
+    background: #dfdfdf;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
+
+.dive-types h3 {
+    margin-bottom: 0;
+}
+
+.dive-types table {
     border-collapse: collapse;
-    margin-top: 1rem;
+    margin-top: .1rem;
     margin-bottom: 1rem;
+    width: 100%;
 }
 
-.dive-types > table th,
-.dive-types > table td {
-    border: 1px solid darkgray;
+.dive-description {
+    text-align: left;
 }
 
-.dive-types > table th {
-    background-color: rgb(228, 226, 226);
+.dive-types table th,
+.dive-types table td {
+    border: 1px solid white;
+    padding-left: .5rem;
 }
 
-.dive-types > table th {
+.dive-types table th {
     padding: .5rem;
 }
 
-.dive-type-row-forward {
+.dive-group-forward table{
     background: linear-gradient(to bottom right, #ffe6e6, lightpink);
 }
 
-.dive-type-row-forward:hover {
+.dive-group-forward th {
+    background: #ff9999;
+}
+
+.dive-group-row-forward:hover {
     background: linear-gradient(to bottom right, #ffcccc, #ff9999);
 }
 
-.dive-type-row-back {
+.dive-group-back table {
     background: linear-gradient(to bottom right, #fffff0, lightyellow);
 }
 
-.dive-type-row-back:hover {
+.dive-group-back th {
+    background: #fefe8f;
+}
+
+.dive-group-row-back:hover {
     background: linear-gradient(to bottom right, #ffffe0, #ffff99);
 }
 
-.dive-type-row-reverse {
+.dive-group-reverse table {
     background: linear-gradient(to bottom right, #e6f0fa, lightsteelblue);
 }
 
-.dive-type-row-reverse:hover {
+.dive-group-reverse th {
+    background: #99c2e6;
+}
+
+.dive-group-row-reverse:hover {
     background: linear-gradient(to bottom right, #cce0f5, #99c2e6);
 }
 
-.dive-type-row-inward {
+.dive-group-inward table {
     background: linear-gradient(to bottom right, #fffaf0, antiquewhite);
 }
 
-.dive-type-row-inward:hover {
+.dive-group-inward th {
+    background: #ffe6cc;
+}
+
+.dive-group-row-inward:hover {
     background: linear-gradient(to bottom right, #fff5e6, #ffe6cc);
 }
 
-.dive-type-row-twist {
+.dive-group-twist table {
     background: linear-gradient(to bottom right, #d0e7f9, lightblue);
 }
 
-.dive-type-row-twist:hover {
+.dive-group-twist th {
+    background: #80bfff;
+}
+
+.dive-group-row-twist:hover {
     background: linear-gradient(to bottom right, #b3d1f2, #80bfff);
 }
