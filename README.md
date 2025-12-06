@@ -1,12 +1,16 @@
 # React + TypeScript + Vite
 
---
+---
 Palette:
     355FA3 - Lapis Lazuli
     93B7BE - Light Blue
     FF3864 - rgb(255, 92, 127) - Folly
     FABC2A - rgb(250, 188, 42) - Selective Yellow 
---
+---
+
+To run in a development environment:
+- From the root directory, run: npm run dev
+---
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
