@@ -45,8 +45,8 @@ function Dive({identifier, dive, onChange}: Props) {
         borderColor: 'rgb(53, 95, 163)',
         boxShadow: 3,
         bgcolor: 'rgb(215, 214, 229, 0.2)',
-        pl: 2,
-        pr: 2,
+        pl: { xs: 0.5, sm: 2 },
+        pr: { xs: 0.5, sm: 2 },
         pt: 3
     } as const;
 

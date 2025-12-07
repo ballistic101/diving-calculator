@@ -19,8 +19,8 @@ function Basic() {
         gridTemplateColumns: 'repeat(2, 1fr)',
         mt: 2,
         mb: 3,
-        pl: 2,
-        pr: 2,
+        pl: { xs: 0.5, sm: 2 },
+        pr: { xs: 0.5, sm: 2 },
         pt: 1
     } as const;
 

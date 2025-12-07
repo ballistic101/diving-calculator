@@ -19,12 +19,12 @@ function DiveScore({title, id, value, onChange}: Props) {
 
     const ItemDiveScoreStyle = {
         display: "grid",
-        gridTemplateColumns: 'minmax(80px, 140px) auto 1fr',
+        gridTemplateColumns: 'minmax(40px, 100px) auto 1fr',
         alignItems: 'center',
         mt: 2,
         mb: 2,
-        pl: 2,
-        pr: 2,
+        pl: { xs: 0.5, sm: 2 },
+        pr: { xs: 0.5, sm: 2 },
         pt: 3
     } as const;
 
