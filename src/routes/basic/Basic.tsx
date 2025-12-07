@@ -19,26 +19,28 @@ function Basic() {
         gridTemplateColumns: 'repeat(2, 1fr)',
         mt: 2,
         mb: 3,
+        alignItems: 'center',
         pl: { xs: 0.5, sm: 2 },
         pr: { xs: 0.5, sm: 2 },
         pt: 1
     } as const;
 
     const DiveSumStyle = {
-        pl: 2,
-        pr: 2,
         pt: 1,
         pb: 1,
-        mr: 2,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         bgcolor: "rgba(250, 188, 42, 1)"
     } as const;
 
     const DiveFinalStyle = {
-        ml: 2,
-        pl: 2,
-        pr: 2,
+        ml: 1,
         pt: 1,
         pb: 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         bgcolor: "rgba(255, 92, 127, 0.8)"
     } as const;
 
