@@ -33,7 +33,7 @@ function DiveScore({title, id, value, onChange}: Props) {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        height: 48,
+        height: 56,
         mr: '15px'
     } as const;
 
@@ -46,29 +46,29 @@ function DiveScore({title, id, value, onChange}: Props) {
 
             <Box sx={ArrowContainerStyle} aria-hidden={false}>
                 <IconButton
-                    size="small"
+                    size="medium"
                     aria-label={`increase ${title}`}
                     onClick={() => {
                         const next = Math.min(10, Number((value + 0.5).toFixed(2)));
                         onChange(null as unknown as Event, next);
                     }}
                     disabled={value >= 10}
-                    sx={{ padding: 0.5 }}
+                    sx={{ padding: 0.75 }}
                 >
-                    <span aria-hidden style={{ fontSize: 20, lineHeight: 1 }}>▲</span>
+                    <span aria-hidden style={{ fontSize: 24, lineHeight: 1 }}>▲</span>
                 </IconButton>
 
                 <IconButton
-                    size="small"
+                    size="medium"
                     aria-label={`decrease ${title}`}
                     onClick={() => {
                         const prev = Math.max(0, Number((value - 0.5).toFixed(2)));
                         onChange(null as unknown as Event, prev);
                     }}
                     disabled={value <= 0}
-                    sx={{ padding: 0.5 }}
+                    sx={{ padding: 0.75 }}
                 >
-                    <span aria-hidden style={{ fontSize: 20, lineHeight: 1 }}>▼</span>
+                    <span aria-hidden style={{ fontSize: 24, lineHeight: 1 }}>▼</span>
                 </IconButton>
             </Box>
 

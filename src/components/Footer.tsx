@@ -1,9 +1,10 @@
 import './Footer.css';
 
 function Footer() {
+    const year = new Date().getFullYear();
     return (
         <div className="footer">
-            <span>Copyright &copy; Prairie Dog Consulting LLC</span>
+            <span>Copyright &copy; {year} Prairie Dog Consulting LLC</span>
         </div>
     );
 }

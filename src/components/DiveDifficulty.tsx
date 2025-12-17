@@ -43,7 +43,7 @@ function DiveDifficulty({value, onChange}: Props) {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        height: 48,
+        height: 56,
         mr: '10px'
     } as const;
 
@@ -55,29 +55,29 @@ function DiveDifficulty({value, onChange}: Props) {
 
             <Box sx={ArrowContainerStyle} aria-hidden={false}>
                 <IconButton
-                    size="small"
+                    size="medium"
                     aria-label={`increase dive difficulty`}
                     onClick={() => {
                         const next = Math.min(3.4, Number((value + 0.1).toFixed(2)));
                         onChange(next);
                     }}
                     disabled={value >= 3.4}
-                    sx={{ padding: 0.5 }}
+                    sx={{ padding: 0.75 }}
                 >
-                    <span aria-hidden style={{ fontSize: 18, lineHeight: 1 }}>▲</span>
+                    <span aria-hidden style={{ fontSize: 22, lineHeight: 1 }}>▲</span>
                 </IconButton>
 
                 <IconButton
-                    size="small"
+                    size="medium"
                     aria-label={`decrease dive difficulty`}
                     onClick={() => {
                         const prev = Math.max(1.2, Number((value - 0.1).toFixed(2)));
                         onChange(prev);
                     }}
                     disabled={value <= 1.2}
-                    sx={{ padding: 0.5 }}
+                    sx={{ padding: 0.75 }}
                 >
-                    <span aria-hidden style={{ fontSize: 18, lineHeight: 1 }}>▼</span>
+                    <span aria-hidden style={{ fontSize: 22, lineHeight: 1 }}>▼</span>
                 </IconButton>
             </Box>
 
