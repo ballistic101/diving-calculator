@@ -31,7 +31,10 @@ function Basic() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        bgcolor: "rgba(250, 188, 42, 1)"
+        px: 2,
+        bgcolor: "rgba(250, 188, 42, 1)",
+        borderRadius: '8px',
+        boxShadow: 'inset 0 3px 6px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.22)'
     } as const;
 
     const DiveFinalStyle = {
@@ -41,7 +44,10 @@ function Basic() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        bgcolor: "rgba(255, 92, 127, 0.8)"
+        px: 2,
+        bgcolor: "rgba(255, 92, 127, 0.8)",
+        borderRadius: '8px',
+        boxShadow: 'inset 0 3px 6px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.22)'
     } as const;
 
     const finalRounded = Math.round(diveStats.final * 1000) / 1000;
