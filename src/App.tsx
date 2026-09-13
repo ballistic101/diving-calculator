@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import React, { useState } from 'react';
 import Home from './routes/home/Home';
 import Basic from './routes/basic/Basic';
@@ -12,9 +12,11 @@ import './App.css'
 function App() {
 
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
+  const location = useLocation();
+  const isHomeRoute = location.pathname === '/';
 
   return (
-    <>
+    <div className={isHomeRoute ? 'app-shell home-route' : 'app-shell'}>
       <Header onMenuClick={() => setMenuOpen(!isMenuOpen)} />
       <HamburgerMenu isOpen={isMenuOpen} onClose={() => setMenuOpen(false)}/>
       <Routes>
@@ -24,7 +26,7 @@ function App() {
         <Route path="*" element={<NoMatch />} />
       </Routes>
       <Footer/>
-    </>
+    </div>
   )
 }
 

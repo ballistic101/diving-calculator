@@ -1,14 +1,19 @@
 .header {
     display: table;
-    height: 5rem;
+    height: 9.93rem;
     width: 100%;
     background-color: rgb(53, 95, 163);
     color: white;
+    box-sizing: border-box;
 }
 
 .header > h1 {
-    vertical-align: middle;
-    align-content: center;
+    margin: 2.144rem 0;
+    line-height: 1.1;
+    font-size: 3.2rem;
+    font-weight: 700;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    display: block;
 }
 
 .hamburger-icon {
