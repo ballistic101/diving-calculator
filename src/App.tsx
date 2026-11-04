@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import Home from './routes/home/Home';
 import Basic from './routes/basic/Basic';
 import DiveTypes from './routes/dive-types/DiveTypes';
+import Divers from './routes/divers/Divers';
+import Meet from './routes/meet/Meet';
+import MeetResults from './routes/results/MeetResults';
 import NoMatch from './routes/no-match/NoMatch';
 import Header from './components/Header';
 import HamburgerMenu from './components/HamburgerMenu';
@@ -22,6 +25,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/basic" element={<Basic />} />
+        <Route path="/divers" element={<Divers />} />
+        <Route path="/meet" element={<Meet />} />
+        <Route path="/results" element={<MeetResults />} />
         <Route path="/dive-types" element={<DiveTypes />} />  
         <Route path="*" element={<NoMatch />} />
       </Routes>

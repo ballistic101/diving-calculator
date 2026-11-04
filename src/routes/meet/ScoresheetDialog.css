@@ -1,0 +1,51 @@
+.scoresheet__diver-select {
+    display: grid;
+    max-width: 20rem;
+    gap: 0.35rem;
+    margin: 0.25rem 0 0.75rem;
+    color: #17323d;
+    font-weight: 700;
+}
+
+.scoresheet__diver-select select {
+    min-height: 2.5rem;
+    padding: 0.4rem 0.55rem;
+    border: 1px solid #899da5;
+    border-radius: 4px;
+    background: #fff;
+    color: #17323d;
+    font: inherit;
+}
+
+.scoresheet__affiliation {
+    margin: 0 0 0.75rem;
+    color: #355fa3;
+    font-weight: 700;
+}
+
+.scoresheet__table-wrap {
+    overflow-x: auto;
+}
+
+.scoresheet__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+.scoresheet__table th,
+.scoresheet__table td {
+    padding: 0.55rem 0.6rem;
+    border-bottom: 1px solid #d5dfe2;
+    white-space: nowrap;
+}
+
+.scoresheet__table thead th {
+    background: #edf4f8;
+    color: #17323d;
+}
+
+.scoresheet__empty {
+    color: #64777e;
+}

@@ -1,0 +1,137 @@
+.meet-page {
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 1.5rem 0 3rem;
+    color: #17323d;
+    text-align: left;
+}
+
+.meet-page__header {
+    margin-bottom: 1.5rem;
+}
+
+.meet-page__eyebrow {
+    margin: 0 0 0.35rem;
+    color: #355fa3;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.meet-page__header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.meet-page__affiliation {
+    display: inline-block;
+    margin: 0.5rem 0 0;
+    padding: 0.25rem 0.5rem;
+    background: #fff;
+    color: #334e58;
+    font-weight: 700;
+}
+
+.meet-page__affiliation--home {
+    background: #dcedf5;
+}
+
+.meet-page__dive-info {
+    border-top: 2px solid #355fa3;
+    padding: 1rem 0 0.5rem;
+}
+
+.meet-page__dive-info p {
+    margin: 0.25rem 0;
+}
+
+.meet-page__dive-info h2 {
+    margin: 0.5rem 0 0.25rem;
+    font-size: 1.5rem;
+}
+
+.meet-page__scoring {
+    margin-top: 1rem;
+}
+
+.meet-page__totals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    border-top: 1px solid #bdcdd2;
+    border-bottom: 1px solid #bdcdd2;
+    padding: 0.75rem 0;
+}
+
+.meet-page__totals p {
+    display: flex;
+    gap: 0.75rem;
+    margin: 0;
+}
+
+.meet-page__totals strong {
+    font-variant-numeric: tabular-nums;
+}
+
+.meet-page__save-error {
+    color: #9c2f25;
+    font-weight: 700;
+}
+
+.meet-page__navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.25rem;
+}
+
+.meet-page__navigation button {
+    min-height: 2.75rem;
+    padding: 0.6rem 1rem;
+    border: 1px solid #355fa3;
+    border-radius: 4px;
+    background: #355fa3;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.meet-page__navigation button:disabled {
+    border-color: #9aa9ae;
+    background: #e8edef;
+    color: #69797e;
+    cursor: not-allowed;
+}
+
+.meet-page__navigation span {
+    color: #4a6068;
+}
+
+.meet-page__results-link {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    padding: 0.6rem 1rem;
+    border: 1px solid #355fa3;
+    border-radius: 4px;
+    background: #355fa3;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.meet-page__results-link:hover {
+    background: #284b83;
+}
+
+@media (max-width: 600px) {
+    .meet-page {
+        padding: 1rem 0 2rem;
+    }
+
+    .meet-page__navigation {
+        align-items: stretch;
+    }
+}

@@ -1,0 +1,186 @@
+.divers-page {
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 1.5rem 0 3rem;
+    color: #17323d;
+    text-align: left;
+}
+
+.divers-page__header {
+    margin-bottom: 2rem;
+}
+
+.divers-page__eyebrow {
+    margin: 0 0 0.35rem;
+    color: #355fa3;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.divers-page__header h1 {
+    margin: 0;
+    font-size: 2rem;
+    line-height: 1.15;
+}
+
+.divers-page__roster {
+    border-top: 2px solid #355fa3;
+    padding: 1.25rem 0;
+}
+
+.divers-page__roster h2 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.divers-page__roster-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.divers-page__add-button,
+.divers-page__edit-button {
+    min-height: 2.5rem;
+    border: 1px solid #355fa3;
+    border-radius: 4px;
+    background: #355fa3;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.divers-page__add-button {
+    padding: 0.5rem 0.85rem;
+}
+
+.divers-page__edit-button {
+    flex: none;
+    padding: 0.35rem 0.75rem;
+}
+
+.divers-page__remove-button {
+    min-height: 2.5rem;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid #9c2f25;
+    border-radius: 4px;
+    background: #fff;
+    color: #84261f;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.divers-page__add-button:hover,
+.divers-page__edit-button:hover {
+    background: #284b83;
+}
+
+.divers-page__remove-button:hover {
+    background: #fff0ed;
+}
+
+.divers-page__edit-button:disabled {
+    border-color: #9aa9ae;
+    background: #e8edef;
+    color: #69797e;
+    cursor: not-allowed;
+}
+
+.divers-page__save-error {
+    color: #9c2f25;
+    font-weight: 700;
+}
+
+.divers-page__start {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.divers-page__start p {
+    margin: 0;
+    color: #4a6068;
+}
+
+.divers-page__start-button {
+    min-height: 2.75rem;
+    padding: 0.6rem 1rem;
+    border: 1px solid #355fa3;
+    border-radius: 4px;
+    background: #355fa3;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.divers-page__start-button:disabled {
+    border-color: #9aa9ae;
+    background: #e8edef;
+    color: #69797e;
+    cursor: not-allowed;
+}
+
+.divers-page__empty {
+    margin: 0.75rem 0 0;
+    color: #4a6068;
+}
+
+.divers-page__list {
+    display: grid;
+    gap: 0.35rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.divers-page__row {
+    display: flex;
+    min-height: 3.25rem;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.65rem 0.9rem;
+    border-left: 4px solid transparent;
+    flex-wrap: wrap;
+}
+
+.divers-page__row--home {
+    border-left-color: #355fa3;
+    background: #dcedf5;
+}
+
+.divers-page__row--away {
+    border-left-color: #93b7be;
+    background: #fff;
+}
+
+.divers-page__name {
+    flex: 1 1 10rem;
+    overflow-wrap: anywhere;
+    font-weight: 700;
+}
+
+.divers-page__affiliation {
+    flex: none;
+    color: #334e58;
+    font-size: 0.9rem;
+}
+
+.divers-page__row-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-left: auto;
+}
+
+@media (max-width: 600px) {
+    .divers-page {
+        padding: 1rem 0 2rem;
+    }
+}

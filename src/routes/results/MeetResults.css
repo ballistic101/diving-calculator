@@ -1,0 +1,114 @@
+.meet-results {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 1.5rem 0 3rem;
+    color: #17323d;
+    text-align: left;
+}
+
+.meet-results__header {
+    margin-bottom: 1.5rem;
+}
+
+.meet-results__eyebrow {
+    margin: 0 0 0.35rem;
+    color: #355fa3;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.meet-results__header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.meet-results__diver {
+    border-top: 2px solid #355fa3;
+    padding: 1rem 0 1.5rem;
+}
+
+.meet-results__diver-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.meet-results__diver-heading h2 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.meet-results__diver-heading p {
+    margin: 0.25rem 0 0;
+    color: #4a6068;
+}
+
+.meet-results__final-total {
+    display: flex;
+    gap: 0.75rem;
+    align-items: baseline;
+}
+
+.meet-results__final-total strong {
+    color: #17323d;
+    font-size: 1.15rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.meet-results__table-wrap {
+    overflow-x: auto;
+}
+
+.meet-results__table-wrap table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+.meet-results__table-wrap th,
+.meet-results__table-wrap td {
+    padding: 0.55rem 0.6rem;
+    border-bottom: 1px solid #d5dfe2;
+    white-space: nowrap;
+}
+
+.meet-results__table-wrap thead th {
+    background: #edf4f8;
+    color: #17323d;
+}
+
+.meet-results__empty {
+    color: #64777e;
+}
+
+.meet-results__back {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    padding: 0.6rem 1rem;
+    border: 1px solid #355fa3;
+    border-radius: 4px;
+    background: #fff;
+    color: #234879;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.meet-results__back:hover {
+    background: #edf4f8;
+}
+
+@media (max-width: 600px) {
+    .meet-results {
+        padding: 1rem 0 2rem;
+    }
+
+    .meet-results__diver-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

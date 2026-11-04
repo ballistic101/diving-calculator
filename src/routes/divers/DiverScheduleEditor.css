@@ -1,0 +1,128 @@
+.diver-schedule {
+    margin-top: 1rem;
+    border-top: 1px solid #c5d2d7;
+    padding-top: 1rem;
+}
+
+.diver-schedule h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+}
+
+.diver-schedule__search-results,
+.diver-schedule__rounds {
+    display: grid;
+    gap: 0.35rem;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.diver-schedule__search-results {
+    max-height: 12rem;
+    overflow-y: auto;
+    border: 1px solid #aebfc6;
+}
+
+.diver-schedule__result {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 3.5rem minmax(0, 1fr) auto;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0.55rem 0.65rem;
+    border: 0;
+    border-radius: 0;
+    background: #fff;
+    color: #17323d;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.diver-schedule__result:hover {
+    background: #edf4f8;
+}
+
+.diver-schedule__no-results {
+    padding: 0.6rem;
+    color: #4a6068;
+}
+
+.diver-schedule__round {
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    gap: 0.5rem;
+    align-items: start;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #d5dfe2;
+}
+
+.diver-schedule__round-label {
+    color: #355fa3;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.diver-schedule__dive {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.35rem 0.75rem;
+    min-width: 0;
+}
+
+.diver-schedule__description {
+    display: block;
+    color: #4a6068;
+    font-size: 0.85rem;
+}
+
+.diver-schedule__difficulty {
+    white-space: nowrap;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.diver-schedule__empty {
+    color: #64777e;
+    font-size: 0.85rem;
+}
+
+.diver-schedule__actions {
+    display: flex;
+    grid-column: 1 / -1;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.diver-schedule__actions button {
+    min-height: 2rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #355fa3;
+    border-radius: 3px;
+    background: #fff;
+    color: #234879;
+    font: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.diver-schedule__actions button:hover {
+    background: #edf4f8;
+}
+
+.diver-schedule__actions button:disabled {
+    border-color: #b7c2c6;
+    color: #728187;
+    cursor: not-allowed;
+}
+
+@media (max-width: 420px) {
+    .diver-schedule__result {
+        grid-template-columns: 3rem minmax(0, 1fr);
+    }
+
+    .diver-schedule__result span:last-child {
+        grid-column: 2;
+    }
+}
