@@ -1,11 +1,94 @@
 import './Divers.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Add from '@mui/icons-material/Add';
+import DeleteOutlined from '@mui/icons-material/DeleteOutlined';
+import EditOutlined from '@mui/icons-material/EditOutlined';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import {
+    DndContext,
+    KeyboardSensor,
+    PointerSensor,
+    closestCenter,
+    useSensor,
+    useSensors,
+    type DragEndEvent,
+} from '@dnd-kit/core';
+import {
+    SortableContext,
+    sortableKeyboardCoordinates,
+    useSortable,
+    verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import type { MeetDiver } from '../../models/RegularMeet';
 import { loadRegularMeet, saveRegularMeet } from '../../services/regularMeetStorage';
 import { createStableId } from '../../utils/createStableId';
-import { getNextDiverName, moveDiver } from '../../utils/meetRoster';
+import { getNextDiverName, moveDiverToIndex } from '../../utils/meetRoster';
 import DiverEditorDialog from './DiverEditorDialog';
+
+interface SortableDiverRowProps {
+    diver: MeetDiver;
+    onEdit: () => void;
+    onRemove: () => void;
+}
+
+function SortableDiverRow({ diver, onEdit, onRemove }: SortableDiverRowProps) {
+    const {
+        attributes,
+        isDragging,
+        listeners,
+        setActivatorNodeRef,
+        setNodeRef,
+        transform,
+        transition,
+    } = useSortable({ id: diver.id });
+
+    return (
+        <li
+            className={`divers-page__row ${diver.isHome ? 'divers-page__row--home' : 'divers-page__row--away'} ${isDragging ? 'divers-page__row--dragging' : ''}`}
+            ref={setNodeRef}
+            style={{ transform: CSS.Transform.toString(transform), transition }}
+        >
+            <button
+                {...attributes}
+                {...listeners}
+                aria-label={`Reorder ${diver.name}`}
+                className="divers-page__drag-handle"
+                ref={setActivatorNodeRef}
+                title="Drag to reorder"
+                type="button"
+            >
+                <span aria-hidden="true" className="divers-page__grip-icon" />
+            </button>
+            <span className="divers-page__name">{diver.name}</span>
+            <span className="divers-page__affiliation">
+                {diver.isHome ? 'Home' : 'Away'} team
+            </span>
+            <div className="divers-page__row-actions">
+                <Tooltip title="Edit diver">
+                    <IconButton
+                        aria-label={`Edit ${diver.name}`}
+                        className="divers-page__icon-button divers-page__icon-button--edit"
+                        onClick={onEdit}
+                    >
+                        <EditOutlined fontSize="small" />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Remove diver">
+                    <IconButton
+                        aria-label={`Remove ${diver.name}`}
+                        className="divers-page__icon-button divers-page__icon-button--remove"
+                        onClick={onRemove}
+                    >
+                        <DeleteOutlined fontSize="small" />
+                    </IconButton>
+                </Tooltip>
+            </div>
+        </li>
+    );
+}
 
 function Divers() {
     const navigate = useNavigate();
@@ -38,8 +121,19 @@ function Divers() {
         }
     };
 
-    const reorderDiver = (index: number, offset: -1 | 1) => {
-        const divers = moveDiver(meet.divers, index, offset);
+    const sensors = useSensors(
+        useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
+        useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
+    );
+
+    const handleDragEnd = ({ active, over }: DragEndEvent) => {
+        if (!over || active.id === over.id) {
+            return;
+        }
+
+        const sourceIndex = meet.divers.findIndex(({ id }) => id === active.id);
+        const destinationIndex = meet.divers.findIndex(({ id }) => id === over.id);
+        const divers = moveDiverToIndex(meet.divers, sourceIndex, destinationIndex);
         if (divers !== meet.divers) {
             commitDivers(divers);
         }
@@ -58,64 +152,40 @@ function Divers() {
                 <div>
                     <div className="divers-page__roster-heading">
                         <h2 id="roster-title">Divers</h2>
-                        <button
+                        <Tooltip title="Add diver">
+                            <IconButton
+                            aria-label="Add diver"
                             className="divers-page__add-button"
                             onClick={() => setIsAddingDiver(true)}
-                            type="button"
-                        >
-                            Add diver
-                        </button>
+                            >
+                                <Add />
+                            </IconButton>
+                        </Tooltip>
                     </div>
                     {meet.divers.length === 0 ? (
                         <p className="divers-page__empty">No divers have been added.</p>
                     ) : (
-                        <ol className="divers-page__list">
-                            {meet.divers.map((diver, index) => (
-                                <li
-                                    className={`divers-page__row ${diver.isHome ? 'divers-page__row--home' : 'divers-page__row--away'}`}
-                                    key={diver.id}
-                                >
-                                    <span className="divers-page__name">{diver.name}</span>
-                                    <span className="divers-page__affiliation">
-                                        {diver.isHome ? 'Home' : 'Away'} team
-                                    </span>
-                                    <div className="divers-page__row-actions">
-                                        <button
-                                            aria-label={`Move ${diver.name} up`}
-                                            className="divers-page__edit-button"
-                                            disabled={index === 0}
-                                            onClick={() => reorderDiver(index, -1)}
-                                            type="button"
-                                        >
-                                            Up
-                                        </button>
-                                        <button
-                                            aria-label={`Move ${diver.name} down`}
-                                            className="divers-page__edit-button"
-                                            disabled={index === meet.divers.length - 1}
-                                            onClick={() => reorderDiver(index, 1)}
-                                            type="button"
-                                        >
-                                            Down
-                                        </button>
-                                        <button
-                                            className="divers-page__edit-button"
-                                            onClick={() => setEditingDiver(diver)}
-                                            type="button"
-                                        >
-                                            Edit
-                                        </button>
-                                        <button
-                                            className="divers-page__remove-button"
-                                            onClick={() => removeDiver(diver)}
-                                            type="button"
-                                        >
-                                            Remove
-                                        </button>
-                                    </div>
-                                </li>
-                            ))}
-                        </ol>
+                        <DndContext
+                            collisionDetection={closestCenter}
+                            onDragEnd={handleDragEnd}
+                            sensors={sensors}
+                        >
+                            <SortableContext
+                                items={meet.divers.map(({ id }) => id)}
+                                strategy={verticalListSortingStrategy}
+                            >
+                                <ol className="divers-page__list">
+                                    {meet.divers.map((diver) => (
+                                        <SortableDiverRow
+                                            diver={diver}
+                                            key={diver.id}
+                                            onEdit={() => setEditingDiver(diver)}
+                                            onRemove={() => removeDiver(diver)}
+                                        />
+                                    ))}
+                                </ol>
+                            </SortableContext>
+                        </DndContext>
                     )}
                 </div>
             </section>

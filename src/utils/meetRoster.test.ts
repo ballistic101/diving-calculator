@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { MeetDiver } from "../models/RegularMeet";
 import type { MeetDive } from "../models/RegularMeet";
-import { getNextDiverName, moveDiver, moveScheduleSlot } from "./meetRoster";
+import { getNextDiverName, moveDiverToIndex, moveScheduleSlot } from "./meetRoster";
 
 describe("getNextDiverName", () => {
     it("starts at Diver 1 for an empty roster", () => {
@@ -17,21 +17,22 @@ describe("getNextDiverName", () => {
     });
 });
 
-describe("moveDiver", () => {
+describe("moveDiverToIndex", () => {
     const divers: MeetDiver[] = [
         { id: "diver-1", name: "Diver 1", isHome: true, schedule: [] },
         { id: "diver-2", name: "Diver 2", isHome: false, schedule: [] },
         { id: "diver-3", name: "Diver 3", isHome: true, schedule: [] },
     ];
 
-    it("moves a diver one position without changing the original list", () => {
-        expect(moveDiver(divers, 1, -1).map(({ id }) => id)).toEqual(["diver-2", "diver-1", "diver-3"]);
+    it("moves a diver to the drop target without changing the original list", () => {
+        expect(moveDiverToIndex(divers, 0, 2).map(({ id }) => id)).toEqual(["diver-2", "diver-3", "diver-1"]);
         expect(divers.map(({ id }) => id)).toEqual(["diver-1", "diver-2", "diver-3"]);
     });
 
-    it("keeps the order when moving beyond either boundary", () => {
-        expect(moveDiver(divers, 0, -1)).toBe(divers);
-        expect(moveDiver(divers, 2, 1)).toBe(divers);
+    it("keeps the order for invalid or unchanged positions", () => {
+        expect(moveDiverToIndex(divers, 0, -1)).toBe(divers);
+        expect(moveDiverToIndex(divers, 3, 0)).toBe(divers);
+        expect(moveDiverToIndex(divers, 1, 1)).toBe(divers);
     });
 });
 

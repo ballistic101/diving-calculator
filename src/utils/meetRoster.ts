@@ -12,14 +12,16 @@ export function getNextDiverName(divers: readonly Pick<MeetDiver, "name">[]): st
     return `Diver ${number}`;
 }
 
-export function moveDiver(divers: MeetDiver[], index: number, offset: -1 | 1): MeetDiver[] {
-    const destination = index + offset;
-    if (index < 0 || destination < 0 || index >= divers.length || destination >= divers.length) {
+export function moveDiverToIndex(divers: MeetDiver[], sourceIndex: number, destinationIndex: number): MeetDiver[] {
+    if (sourceIndex < 0 || destinationIndex < 0
+        || sourceIndex >= divers.length || destinationIndex >= divers.length
+        || sourceIndex === destinationIndex) {
         return divers;
     }
 
     const reorderedDivers = [...divers];
-    [reorderedDivers[index], reorderedDivers[destination]] = [reorderedDivers[destination], reorderedDivers[index]];
+    const [movedDiver] = reorderedDivers.splice(sourceIndex, 1);
+    reorderedDivers.splice(destinationIndex, 0, movedDiver);
     return reorderedDivers;
 }
 

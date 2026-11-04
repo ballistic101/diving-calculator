@@ -41,53 +41,74 @@
     gap: 1rem;
 }
 
-.divers-page__add-button,
-.divers-page__edit-button {
-    min-height: 2.5rem;
-    border: 1px solid #355fa3;
+.divers-page__add-button.MuiIconButton-root {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.5rem;
     border-radius: 4px;
     background: #355fa3;
     color: #fff;
-    font: inherit;
-    font-weight: 700;
-    cursor: pointer;
 }
 
-.divers-page__add-button {
-    padding: 0.5rem 0.85rem;
-}
-
-.divers-page__edit-button {
+.divers-page__drag-handle {
+    display: grid;
     flex: none;
-    padding: 0.35rem 0.75rem;
-}
-
-.divers-page__remove-button {
+    width: 2.5rem;
     min-height: 2.5rem;
-    padding: 0.35rem 0.75rem;
-    border: 1px solid #9c2f25;
+    place-items: center;
+    padding: 0.25rem;
+    border: 1px solid transparent;
     border-radius: 4px;
-    background: #fff;
+    background: transparent;
+    color: #355fa3;
+    cursor: grab;
+    touch-action: none;
+}
+
+.divers-page__drag-handle:active {
+    cursor: grabbing;
+}
+
+.divers-page__drag-handle:hover,
+.divers-page__drag-handle:focus-visible {
+    border-color: #93b7be;
+    background: #edf4f8;
+}
+
+.divers-page__grip-icon {
+    display: block;
+    width: 1.25rem;
+    height: 1.5rem;
+    background-image: radial-gradient(circle, currentColor 1.5px, transparent 1.6px);
+    background-position: center;
+    background-size: 0.5rem 0.5rem;
+}
+
+.divers-page__icon-button.MuiIconButton-root {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.divers-page__icon-button--edit.MuiIconButton-root {
+    color: #355fa3;
+}
+
+.divers-page__icon-button--edit.MuiIconButton-root:hover {
+    background: #edf4f8;
+}
+
+.divers-page__icon-button--remove.MuiIconButton-root {
     color: #84261f;
-    font: inherit;
-    font-weight: 700;
-    cursor: pointer;
 }
 
-.divers-page__add-button:hover,
-.divers-page__edit-button:hover {
-    background: #284b83;
-}
-
-.divers-page__remove-button:hover {
+.divers-page__icon-button--remove.MuiIconButton-root:hover {
     background: #fff0ed;
 }
 
-.divers-page__edit-button:disabled {
-    border-color: #9aa9ae;
-    background: #e8edef;
-    color: #69797e;
-    cursor: not-allowed;
+.divers-page__add-button.MuiIconButton-root:hover {
+    background: #284b83;
 }
 
 .divers-page__save-error {
@@ -158,6 +179,11 @@
 .divers-page__row--away {
     border-left-color: #93b7be;
     background: #fff;
+}
+
+.divers-page__row--dragging {
+    z-index: 1;
+    opacity: 0.55;
 }
 
 .divers-page__name {

@@ -16,6 +16,7 @@ function HamburgerMenu({isOpen, onClose}: HamburgerMenuProps) {
         <button className="close-btn" onClick={onClose}>←</button>
         <nav>
           <NavLink to="/" onClick={onClose} className={({ isActive }) => isOpen ? 'active' : ''}>Home</NavLink>
+          <NavLink to="/divers" onClick={onClose} className={({ isActive }) => isOpen ? 'active' : ''}>Regular Meet</NavLink>
           <NavLink to="/basic" onClick={onClose} className={({ isActive }) => isOpen ? 'active' : ''}>Basic Calculator</NavLink>
           <NavLink to="/dive-types" onClick={onClose} className={({ isActive }) => isOpen ? 'active' : ''}>Dive Difficulties</NavLink>
         </nav>
