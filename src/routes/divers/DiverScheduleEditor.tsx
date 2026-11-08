@@ -1,10 +1,29 @@
-import { useState } from 'react';
+import Autocomplete from '@mui/material/Autocomplete';
+import DeleteOutlined from '@mui/icons-material/DeleteOutlined';
+import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
+import Tooltip from '@mui/material/Tooltip';
+import {
+    DndContext,
+    KeyboardSensor,
+    PointerSensor,
+    closestCenter,
+    useSensor,
+    useSensors,
+    type DragEndEvent,
+} from '@dnd-kit/core';
+import {
+    SortableContext,
+    sortableKeyboardCoordinates,
+    useSortable,
+    verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { DiveTypes } from '../../constants/DiveTypes';
 import { MAX_MEET_ROUNDS } from '../../models/RegularMeet';
 import type { MeetDive } from '../../models/RegularMeet';
 import { createStableId } from '../../utils/createStableId';
-import { moveScheduleSlot } from '../../utils/meetRoster';
+import { moveScheduleSlotToIndex } from '../../utils/meetRoster';
 import './DiverScheduleEditor.css';
 
 interface DiverScheduleEditorProps {
@@ -12,31 +31,143 @@ interface DiverScheduleEditorProps {
     onChange: (schedule: Array<MeetDive | null>) => void;
 }
 
+interface CatalogDiveOption {
+    catalogKey: string;
+    number: number;
+    name: string;
+    style: string;
+    difficulty: number;
+}
+
+const catalogDiveOptions: CatalogDiveOption[] = Object.entries(DiveTypes)
+    .map(([catalogKey, dive]) => ({
+        catalogKey,
+        number: dive.number,
+        name: dive.name,
+        style: String(dive.style),
+        difficulty: dive.difficulty,
+    }))
+    .sort((left, right) => left.number - right.number || left.catalogKey.localeCompare(right.catalogKey));
+
+function getDiveLabel(option: CatalogDiveOption): string {
+    return `${option.catalogKey.toUpperCase()} · ${option.name}, ${option.style}`;
+}
+
+interface SortableScheduleRoundProps {
+    index: number;
+    dive: MeetDive | null;
+    onSelectDive: (option: CatalogDiveOption | null) => void;
+    onRemoveDive: () => void;
+}
+
+function SortableScheduleRound({ index, dive, onSelectDive, onRemoveDive }: SortableScheduleRoundProps) {
+    const roundId = `schedule-round-${index}`;
+    const {
+        attributes,
+        isDragging,
+        listeners,
+        setActivatorNodeRef,
+        setNodeRef,
+        transform,
+        transition,
+    } = useSortable({ id: roundId });
+    const selectedOption = dive?.catalogKey
+        ? catalogDiveOptions.find((option) => option.catalogKey === dive.catalogKey) ?? null
+        : null;
+
+    return (
+        <li
+            className={`diver-schedule__round ${isDragging ? 'diver-schedule__round--dragging' : ''}`}
+            ref={setNodeRef}
+            style={{ transform: CSS.Transform.toString(transform), transition }}
+        >
+            <div className="diver-schedule__round-position">
+                <button
+                    {...attributes}
+                    {...listeners}
+                    aria-label={`Reorder round ${index + 1}`}
+                    className="divers-page__drag-handle diver-schedule__drag-handle"
+                    ref={setActivatorNodeRef}
+                    title="Drag to reorder"
+                    type="button"
+                >
+                    <span aria-hidden="true" className="divers-page__grip-icon" />
+                </button>
+                <span className="diver-schedule__round-label">Round {index + 1}</span>
+            </div>
+            <div className="diver-schedule__selection">
+                <Autocomplete
+                    disableClearable={Boolean(dive)}
+                    fullWidth
+                    getOptionLabel={getDiveLabel}
+                    isOptionEqualToValue={(option, value) => option.catalogKey === value.catalogKey}
+                    noOptionsText="No matching dives"
+                    onChange={(_event, option) => onSelectDive(option)}
+                    options={catalogDiveOptions}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            placeholder={dive?.catalogKey === null ? 'Manual dive' : 'No dives selected'}
+                            slotProps={{
+                                ...params.slotProps,
+                                htmlInput: {
+                                    ...params.slotProps.htmlInput,
+                                    'aria-label': `Round ${index + 1} dive`,
+                                },
+                            }}
+                            size="small"
+                        />
+                    )}
+                    renderOption={(props, option) => {
+                        const { key, ...optionProps } = props;
+                        return (
+                            <li key={key} {...optionProps}>
+                                <strong>{option.catalogKey.toUpperCase()}</strong>
+                                {' - '}
+                                <span>{option.name}, {option.style} · DD {option.difficulty.toFixed(1)}</span>
+                            </li>
+                        );
+                    }}
+                    size="small"
+                    value={selectedOption}
+                />
+                {dive && <span className="diver-schedule__difficulty">DD {dive.difficulty.toFixed(1)}</span>}
+            </div>
+            <div className="diver-schedule__round-action">
+                {dive ? (
+                    <Tooltip title={`Remove round ${index + 1} dive`}>
+                        <IconButton
+                            aria-label={`Remove round ${index + 1} dive`}
+                            className="diver-schedule__remove-button"
+                            onClick={onRemoveDive}
+                        >
+                            <DeleteOutlined fontSize="small" />
+                        </IconButton>
+                    </Tooltip>
+                ) : <span aria-hidden="true" />}
+            </div>
+        </li>
+    );
+}
+
 function DiverScheduleEditor({ schedule, onChange }: DiverScheduleEditorProps) {
-    const [query, setQuery] = useState('');
-    const normalizedQuery = query.trim().toLowerCase();
-    const results = normalizedQuery
-        ? Object.entries(DiveTypes)
-            .filter(([key, dive]) => key.includes(normalizedQuery) || String(dive.number).includes(normalizedQuery))
-            .slice(0, 8)
-        : [];
+    const sensors = useSensors(
+        useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
+        useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
+    );
+    const roundIds = Array.from({ length: MAX_MEET_ROUNDS }, (_, index) => `schedule-round-${index}`);
 
-    const addDive = (catalogKey: string) => {
-        const catalogDive = DiveTypes[catalogKey];
-        const emptySlot = schedule.findIndex((dive) => dive === null);
-        if (!catalogDive || emptySlot === -1) {
-            return;
-        }
-
+    const setDive = (index: number, option: CatalogDiveOption | null) => {
+        const existingDive = schedule[index];
+        const sameDive = existingDive?.catalogKey === option?.catalogKey;
         const nextSchedule = [...schedule];
-        nextSchedule[emptySlot] = {
-            id: createStableId(),
-            catalogKey,
-            difficulty: catalogDive.difficulty,
-            judgeScores: [0, 0, 0],
-        };
+        nextSchedule[index] = option ? {
+            id: existingDive?.id ?? createStableId(),
+            catalogKey: option.catalogKey,
+            difficulty: sameDive && existingDive ? existingDive.difficulty : option.difficulty,
+            judgeScores: sameDive && existingDive ? existingDive.judgeScores : [0, 0, 0],
+        } : null;
         onChange(nextSchedule);
-        setQuery('');
     };
 
     const removeDive = (index: number) => {
@@ -45,87 +176,37 @@ function DiverScheduleEditor({ schedule, onChange }: DiverScheduleEditorProps) {
         onChange(nextSchedule);
     };
 
+    const handleDragEnd = ({ active, over }: DragEndEvent) => {
+        if (!over || active.id === over.id) {
+            return;
+        }
+
+        const sourceIndex = roundIds.indexOf(String(active.id));
+        const destinationIndex = roundIds.indexOf(String(over.id));
+        const nextSchedule = moveScheduleSlotToIndex(schedule, sourceIndex, destinationIndex);
+        if (nextSchedule !== schedule) {
+            onChange(nextSchedule);
+        }
+    };
+
     return (
         <section className="diver-schedule" aria-labelledby="schedule-title">
             <h3 id="schedule-title">Dive schedule</h3>
-            <TextField
-                fullWidth
-                label="Search dive number"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                disabled={schedule.every((dive) => dive !== null)}
-                size="small"
-            />
-            {normalizedQuery && (
-                <ul className="diver-schedule__search-results" role="listbox" aria-label="Matching dives">
-                    {results.length === 0 ? (
-                        <li className="diver-schedule__no-results">No matching dives</li>
-                    ) : results.map(([key, dive]) => (
-                        <li key={key}>
-                            <button
-                                aria-label={`Add ${key}, ${dive.name}, difficulty ${dive.difficulty.toFixed(1)}`}
-                                className="diver-schedule__result"
-                                onClick={() => addDive(key)}
-                                role="option"
-                                type="button"
-                                aria-selected="false"
-                            >
-                                <strong>{key.toUpperCase()}</strong>
-                                <span>{dive.name}, {String(dive.style)}</span>
-                                <span>DD {dive.difficulty.toFixed(1)}</span>
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-            )}
-            <ol className="diver-schedule__rounds">
-                {schedule.slice(0, MAX_MEET_ROUNDS).map((dive, index) => {
-                    const catalogDive = dive ? DiveTypes[dive.catalogKey] : null;
-                    return (
-                        <li className="diver-schedule__round" key={dive?.id ?? `round-${index}`}>
-                            <span className="diver-schedule__round-label">Round {index + 1}</span>
-                            {dive && catalogDive ? (
-                                <div className="diver-schedule__dive">
-                                    <span>
-                                        <strong>{dive.catalogKey.toUpperCase()}</strong>
-                                        <span className="diver-schedule__description">
-                                            {catalogDive.name}, {String(catalogDive.style)}
-                                        </span>
-                                    </span>
-                                    <span className="diver-schedule__difficulty">DD {dive.difficulty.toFixed(1)}</span>
-                                    <div className="diver-schedule__actions">
-                                        <button
-                                            aria-label={`Move round ${index + 1} dive up`}
-                                            disabled={index === 0}
-                                            onClick={() => onChange(moveScheduleSlot(schedule, index, -1))}
-                                            type="button"
-                                        >
-                                            Up
-                                        </button>
-                                        <button
-                                            aria-label={`Move round ${index + 1} dive down`}
-                                            disabled={index === MAX_MEET_ROUNDS - 1}
-                                            onClick={() => onChange(moveScheduleSlot(schedule, index, 1))}
-                                            type="button"
-                                        >
-                                            Down
-                                        </button>
-                                        <button
-                                            aria-label={`Remove round ${index + 1} dive`}
-                                            onClick={() => removeDive(index)}
-                                            type="button"
-                                        >
-                                            Remove
-                                        </button>
-                                    </div>
-                                </div>
-                            ) : (
-                                <span className="diver-schedule__empty">No dive selected</span>
-                            )}
-                        </li>
-                    );
-                })}
-            </ol>
+            <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} sensors={sensors}>
+                <SortableContext items={roundIds} strategy={verticalListSortingStrategy}>
+                    <ol className="diver-schedule__rounds">
+                        {Array.from({ length: MAX_MEET_ROUNDS }, (_, index) => (
+                            <SortableScheduleRound
+                                dive={schedule[index] ?? null}
+                                index={index}
+                                key={roundIds[index]}
+                                onRemoveDive={() => removeDive(index)}
+                                onSelectDive={(option) => setDive(index, option)}
+                            />
+                        ))}
+                    </ol>
+                </SortableContext>
+            </DndContext>
         </section>
     );
 }

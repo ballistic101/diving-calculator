@@ -51,9 +51,9 @@ function ScoresheetDialog({ divers, initialDiverId, onClose }: ScoresheetDialogP
                                 <th scope="col">Round</th>
                                 <th scope="col">Dive</th>
                                 <th scope="col">DD</th>
-                                <th scope="col">Judge 1</th>
-                                <th scope="col">Judge 2</th>
-                                <th scope="col">Judge 3</th>
+                                <th scope="col">Score 1</th>
+                                <th scope="col">Score 2</th>
+                                <th scope="col">Score 3</th>
                                 <th scope="col">Points</th>
                                 <th scope="col">Total</th>
                             </tr>
@@ -62,14 +62,18 @@ function ScoresheetDialog({ divers, initialDiverId, onClose }: ScoresheetDialogP
                             {Array.from({ length: MAX_MEET_ROUNDS }, (_, roundIndex) => {
                                 const dive = selectedDiver.schedule[roundIndex] ?? null;
                                 const totalsForRound = totals[roundIndex];
-                                const catalogDive = dive ? DiveTypes[dive.catalogKey] : null;
+                                const catalogDive = dive?.catalogKey ? DiveTypes[dive.catalogKey] : null;
 
                                 return (
                                     <tr key={roundIndex}>
                                         <th scope="row">{roundIndex + 1}</th>
-                                        {dive && catalogDive ? (
+                                        {dive ? (
                                             <>
-                                                <td>{dive.catalogKey.toUpperCase()} · {catalogDive.name}</td>
+                                                <td>
+                                                    {catalogDive
+                                                        ? `${dive.catalogKey?.toUpperCase()} · ${catalogDive.name}`
+                                                        : 'Manual dive'}
+                                                </td>
                                                 <td>{dive.difficulty.toFixed(1)}</td>
                                                 {dive.judgeScores.map((score, index) => (
                                                     <td key={index}>{score.toFixed(1)}</td>

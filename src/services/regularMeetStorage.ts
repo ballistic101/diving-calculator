@@ -14,7 +14,7 @@ interface PersistedMeet {
 }
 
 export function createEmptyMeet(): RegularMeet {
-    return { id: createStableId(), divers: [] };
+    return { id: createStableId(), divers: [], started: false, currentPosition: null };
 }
 
 export function loadRegularMeet(storage?: StorageAdapter): RegularMeet {
@@ -34,7 +34,11 @@ export function loadRegularMeet(storage?: StorageAdapter): RegularMeet {
             return createEmptyMeet();
         }
 
-        return parsed.meet;
+        return {
+            ...parsed.meet,
+            started: parsed.meet.started ?? false,
+            currentPosition: parsed.meet.currentPosition ?? null,
+        };
     } catch {
         return createEmptyMeet();
     }
@@ -89,8 +93,8 @@ function isMeetDive(value: unknown, ids: Set<string>): value is MeetDive {
     if (!isRecord(value)
         || !isValidId(value.id)
         || ids.has(value.id)
-        || typeof value.catalogKey !== "string"
-        || !Object.hasOwn(DiveTypes, value.catalogKey)
+        || !(value.catalogKey === null
+            || (typeof value.catalogKey === "string" && Object.hasOwn(DiveTypes, value.catalogKey)))
         || typeof value.difficulty !== "number"
         || !Number.isFinite(value.difficulty)
         || value.difficulty <= 0
@@ -117,8 +121,23 @@ function isMeetDiver(value: unknown, ids: Set<string>): value is MeetDiver {
     return value.schedule.every((dive) => dive === null || isMeetDive(dive, ids));
 }
 
+function isMeetDivePosition(value: unknown): boolean {
+    return isRecord(value)
+        && isValidId(value.diverId)
+        && typeof value.roundIndex === "number"
+        && Number.isInteger(value.roundIndex)
+        && value.roundIndex >= 0
+        && value.roundIndex < MAX_MEET_ROUNDS;
+}
+
 function isRegularMeet(value: unknown): value is RegularMeet {
-    if (!isRecord(value) || !isValidId(value.id) || !Array.isArray(value.divers)) {
+    if (!isRecord(value)
+        || !isValidId(value.id)
+        || !Array.isArray(value.divers)
+        || (value.started !== undefined && typeof value.started !== "boolean")
+        || (value.currentPosition !== undefined
+            && value.currentPosition !== null
+            && !isMeetDivePosition(value.currentPosition))) {
         return false;
     }
 

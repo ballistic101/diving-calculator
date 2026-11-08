@@ -23,9 +23,17 @@
     font-size: 2rem;
 }
 
+.meet-page__diver-identity {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    column-gap: 0.75rem;
+    row-gap: 0.25rem;
+}
+
 .meet-page__affiliation {
     display: inline-block;
-    margin: 0.5rem 0 0;
+    margin: 0;
     padding: 0.25rem 0.5rem;
     background: #fff;
     color: #334e58;
@@ -45,9 +53,11 @@
     margin: 0.25rem 0;
 }
 
-.meet-page__dive-info h2 {
+.meet-page__dive-title {
     margin: 0.5rem 0 0.25rem;
     font-size: 1.5rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
 }
 
 .meet-page__scoring {
@@ -69,6 +79,10 @@
     margin: 0;
 }
 
+.meet-page__totals p:last-child {
+    margin-left: auto;
+}
+
 .meet-page__totals strong {
     font-variant-numeric: tabular-nums;
 }
@@ -86,7 +100,7 @@
     margin-top: 1.25rem;
 }
 
-.meet-page__navigation button {
+.meet-page__navigation > button:not(.MuiButton-root) {
     min-height: 2.75rem;
     padding: 0.6rem 1rem;
     border: 1px solid #355fa3;
@@ -98,11 +112,35 @@
     cursor: pointer;
 }
 
-.meet-page__navigation button:disabled {
+.meet-page__navigation > button:not(.MuiButton-root):disabled {
     border-color: #9aa9ae;
     background: #e8edef;
     color: #69797e;
     cursor: not-allowed;
+}
+
+.meet-page__scoresheet-button.MuiButton-root {
+    min-height: 2.75rem;
+    padding: 0.6rem 1rem;
+    border: 1px solid #c18b12;
+    border-radius: 4px;
+    background: #fabc2a;
+    box-shadow: 0 2px 3px rgba(23, 50, 61, 0.18);
+    color: #17323d;
+    font: inherit;
+    font-weight: 700;
+    text-transform: none;
+}
+
+.meet-page__scoresheet-button.MuiButton-root:hover {
+    border-color: #a8740a;
+    background: #e9aa1d;
+    box-shadow: 0 3px 5px rgba(23, 50, 61, 0.22);
+}
+
+.meet-page__scoresheet-button.MuiButton-root:focus-visible {
+    outline: 3px solid #355fa3;
+    outline-offset: 2px;
 }
 
 .meet-page__navigation span {
@@ -132,6 +170,31 @@
     }
 
     .meet-page__navigation {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-areas:
+            "previous forward"
+            "scoresheet scoresheet";
         align-items: stretch;
+    }
+
+    .meet-page__diver-identity {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+        .meet-page__previous-control {
+            grid-area: previous;
+        }
+
+        .meet-page__forward-control {
+            grid-area: forward;
+        }
+
+    .meet-page__scoresheet-button.MuiButton-root {
+            grid-area: scoresheet;
+        justify-self: start;
+        margin-top: 0.25rem;
     }
 }

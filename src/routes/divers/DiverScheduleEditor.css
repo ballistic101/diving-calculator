@@ -9,7 +9,6 @@
     font-size: 1rem;
 }
 
-.diver-schedule__search-results,
 .diver-schedule__rounds {
     display: grid;
     gap: 0.35rem;
@@ -18,111 +17,117 @@
     list-style: none;
 }
 
-.diver-schedule__search-results {
-    max-height: 12rem;
-    overflow-y: auto;
-    border: 1px solid #aebfc6;
-}
-
-.diver-schedule__result {
-    display: grid;
-    width: 100%;
-    grid-template-columns: 3.5rem minmax(0, 1fr) auto;
-    gap: 0.5rem;
-    align-items: center;
-    padding: 0.55rem 0.65rem;
-    border: 0;
-    border-radius: 0;
-    background: #fff;
-    color: #17323d;
-    font: inherit;
-    text-align: left;
-    cursor: pointer;
-}
-
-.diver-schedule__result:hover {
-    background: #edf4f8;
-}
-
-.diver-schedule__no-results {
-    padding: 0.6rem;
-    color: #4a6068;
-}
-
 .diver-schedule__round {
     display: grid;
-    grid-template-columns: 4.5rem minmax(0, 1fr);
-    gap: 0.5rem;
-    align-items: start;
-    padding: 0.6rem 0;
+    grid-template-columns: 5.5rem minmax(0, 1fr) 2.5rem;
+    gap: 0.4rem;
+    align-items: center;
+    min-width: 0;
+    padding: 0.45rem 0;
     border-bottom: 1px solid #d5dfe2;
 }
 
+.diver-schedule__round-position {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.2rem;
+}
+
 .diver-schedule__round-label {
+    white-space: nowrap;
     color: #355fa3;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 700;
 }
 
-.diver-schedule__dive {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 0.35rem 0.75rem;
+.diver-schedule__drag-handle.divers-page__drag-handle {
+    width: 1.75rem;
+    min-height: 2.25rem;
+    padding: 0;
+}
+
+.diver-schedule__drag-handle .divers-page__grip-icon {
+    width: 1rem;
+    height: 1.5rem;
+    background-size: 0.4rem 0.4rem;
+}
+
+.diver-schedule__round--dragging {
+    z-index: 1;
+    opacity: 0.55;
+}
+
+.diver-schedule__selection {
     min-width: 0;
 }
 
-.diver-schedule__description {
-    display: block;
-    color: #4a6068;
-    font-size: 0.85rem;
+.diver-schedule__round-action {
+    display: flex;
+    min-width: 2rem;
+    justify-content: flex-end;
+}
+
+.diver-schedule__selection .MuiAutocomplete-root,
+.diver-schedule__selection .MuiInputBase-root {
+    min-width: 0;
+}
+
+.diver-schedule__selection .MuiInputBase-input {
+    font-size: 0.75rem;
 }
 
 .diver-schedule__difficulty {
-    white-space: nowrap;
-    font-size: 0.85rem;
+    display: block;
+    margin: 0.2rem 0 0 0.8rem;
+    color: #4a6068;
+    font-size: 0.75rem;
     font-weight: 700;
 }
 
-.diver-schedule__empty {
-    color: #64777e;
-    font-size: 0.85rem;
+.diver-schedule__remove-button.MuiIconButton-root {
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0.35rem;
+    color: #84261f;
 }
 
-.diver-schedule__actions {
-    display: flex;
-    grid-column: 1 / -1;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-}
-
-.diver-schedule__actions button {
-    min-height: 2rem;
-    padding: 0.25rem 0.5rem;
-    border: 1px solid #355fa3;
-    border-radius: 3px;
-    background: #fff;
-    color: #234879;
-    font: inherit;
-    font-size: 0.8rem;
-    cursor: pointer;
-}
-
-.diver-schedule__actions button:hover {
-    background: #edf4f8;
-}
-
-.diver-schedule__actions button:disabled {
-    border-color: #b7c2c6;
-    color: #728187;
-    cursor: not-allowed;
+.diver-schedule__remove-button.MuiIconButton-root:hover {
+    background: #fff0ed;
 }
 
 @media (max-width: 420px) {
-    .diver-schedule__result {
-        grid-template-columns: 3rem minmax(0, 1fr);
+    .diver-schedule__round {
+        grid-template-columns: minmax(0, 1fr) 2rem;
+        grid-template-areas:
+            "position action"
+            "selection selection";
+        gap: 0.25rem 0.4rem;
     }
 
-    .diver-schedule__result span:last-child {
-        grid-column: 2;
+    .diver-schedule__round-position {
+        grid-area: position;
+    }
+
+    .diver-schedule__selection {
+        grid-area: selection;
+    }
+
+    .diver-schedule__round-action {
+        grid-area: action;
+    }
+
+    .diver-schedule__drag-handle.divers-page__drag-handle {
+        width: 1.5rem;
+    }
+
+    .diver-schedule__round-label {
+        font-size: 0.7rem;
+    }
+
+    .diver-schedule__remove-button.MuiIconButton-root {
+        width: 2rem;
+        height: 2rem;
+        padding: 0.25rem;
     }
 }

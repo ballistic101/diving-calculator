@@ -25,13 +25,19 @@ export function moveDiverToIndex(divers: MeetDiver[], sourceIndex: number, desti
     return reorderedDivers;
 }
 
-export function moveScheduleSlot(schedule: Array<MeetDive | null>, index: number, offset: -1 | 1): Array<MeetDive | null> {
-    const destination = index + offset;
-    if (index < 0 || destination < 0 || index >= schedule.length || destination >= schedule.length) {
+export function moveScheduleSlotToIndex(
+    schedule: Array<MeetDive | null>,
+    sourceIndex: number,
+    destinationIndex: number,
+): Array<MeetDive | null> {
+    if (sourceIndex < 0 || destinationIndex < 0
+        || sourceIndex >= schedule.length || destinationIndex >= schedule.length
+        || sourceIndex === destinationIndex) {
         return schedule;
     }
 
     const reorderedSchedule = [...schedule];
-    [reorderedSchedule[index], reorderedSchedule[destination]] = [reorderedSchedule[destination], reorderedSchedule[index]];
+    const [movedDive] = reorderedSchedule.splice(sourceIndex, 1);
+    reorderedSchedule.splice(destinationIndex, 0, movedDive);
     return reorderedSchedule;
 }

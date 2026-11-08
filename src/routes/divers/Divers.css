@@ -148,6 +148,29 @@
     cursor: not-allowed;
 }
 
+.divers-page__reset-button,
+.divers-page__reset-confirm.MuiButton-root {
+    min-height: 2.75rem;
+    padding: 0.6rem 1rem;
+    border: 1px solid #9c2f25;
+    border-radius: 4px;
+    background: #9c2f25;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.divers-page__reset-button:hover,
+.divers-page__reset-confirm.MuiButton-root:hover {
+    border-color: #84261f;
+    background: #84261f;
+}
+
+.divers-page__reset-confirm.MuiButton-root {
+    text-transform: none;
+}
+
 .divers-page__empty {
     margin: 0.75rem 0 0;
     color: #4a6068;
@@ -186,14 +209,23 @@
     opacity: 0.55;
 }
 
-.divers-page__name {
+.divers-page__identity {
     flex: 1 1 10rem;
+    display: flex;
+    min-width: 0;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.divers-page__name {
+    min-width: 0;
     overflow-wrap: anywhere;
     font-weight: 700;
 }
 
 .divers-page__affiliation {
     flex: none;
+    white-space: nowrap;
     color: #334e58;
     font-size: 0.9rem;
 }

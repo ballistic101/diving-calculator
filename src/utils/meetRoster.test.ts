@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { MeetDiver } from "../models/RegularMeet";
 import type { MeetDive } from "../models/RegularMeet";
-import { getNextDiverName, moveDiverToIndex, moveScheduleSlot } from "./meetRoster";
+import { getNextDiverName, moveDiverToIndex, moveScheduleSlotToIndex } from "./meetRoster";
 
 describe("getNextDiverName", () => {
     it("starts at Diver 1 for an empty roster", () => {
@@ -36,7 +36,7 @@ describe("moveDiverToIndex", () => {
     });
 });
 
-describe("moveScheduleSlot", () => {
+describe("moveScheduleSlotToIndex", () => {
     const schedule: Array<MeetDive | null> = [
         { id: "dive-1", catalogKey: "101c", difficulty: 1.2, judgeScores: [0, 0, 0] },
         null,
@@ -46,16 +46,17 @@ describe("moveScheduleSlot", () => {
         null,
     ];
 
-    it("moves a scheduled dive between round slots without mutating the source", () => {
-        const movedSchedule = moveScheduleSlot(schedule, 2, -1);
+    it("moves a scheduled dive to a drop target without mutating the source", () => {
+        const movedSchedule = moveScheduleSlotToIndex(schedule, 2, 0);
 
-        expect(movedSchedule[1]?.id).toBe("dive-2");
-        expect(movedSchedule[2]).toBeNull();
+        expect(movedSchedule[0]?.id).toBe("dive-2");
+        expect(movedSchedule[1]?.id).toBe("dive-1");
         expect(schedule[2]?.id).toBe("dive-2");
     });
 
-    it("does not move beyond the six round boundaries", () => {
-        expect(moveScheduleSlot(schedule, 0, -1)).toBe(schedule);
-        expect(moveScheduleSlot(schedule, 5, 1)).toBe(schedule);
+    it("keeps the original order for invalid or unchanged positions", () => {
+        expect(moveScheduleSlotToIndex(schedule, 0, -1)).toBe(schedule);
+        expect(moveScheduleSlotToIndex(schedule, 6, 0)).toBe(schedule);
+        expect(moveScheduleSlotToIndex(schedule, 2, 2)).toBe(schedule);
     });
 });

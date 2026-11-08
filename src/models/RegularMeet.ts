@@ -4,7 +4,7 @@ export type JudgeScores = [number, number, number];
 
 export interface MeetDive {
     id: string;
-    catalogKey: string;
+    catalogKey: string | null;
     difficulty: number;
     judgeScores: JudgeScores;
 }
@@ -16,7 +16,14 @@ export interface MeetDiver {
     schedule: Array<MeetDive | null>;
 }
 
+export interface MeetDivePosition {
+    diverId: string;
+    roundIndex: number;
+}
+
 export interface RegularMeet {
     id: string;
     divers: MeetDiver[];
+    started?: boolean;
+    currentPosition?: MeetDivePosition | null;
 }

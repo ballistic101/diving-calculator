@@ -6,6 +6,8 @@ const storageKey = "diving-calculator.regular-meet";
 
 const sampleMeet: RegularMeet = {
     id: "meet-1",
+    started: false,
+    currentPosition: null,
     divers: [{
         id: "diver-1",
         name: "Diver 1",
@@ -42,6 +44,44 @@ describe("regular meet storage", () => {
         expect(storage.setItem).toHaveBeenCalledWith(storageKey, expect.any(String));
         expect(JSON.parse(storage.setItem.mock.calls[0][1])).toEqual({ version: 1, meet: sampleMeet });
         expect(loadRegularMeet(storage)).toEqual(sampleMeet);
+    });
+
+    it("defaults older saved meets to setup state", () => {
+        const legacyMeet = { id: sampleMeet.id, divers: sampleMeet.divers };
+        const storage = makeStorage(JSON.stringify({ version: 1, meet: legacyMeet }));
+
+        expect(loadRegularMeet(storage)).toMatchObject({ started: false, currentPosition: null });
+    });
+
+    it("round-trips active meet position", () => {
+        const storage = makeStorage();
+        const activeMeet: RegularMeet = {
+            ...sampleMeet,
+            started: true,
+            currentPosition: { diverId: "diver-1", roundIndex: 2 },
+        };
+
+        expect(saveRegularMeet(activeMeet, storage)).toBe(true);
+        expect(loadRegularMeet(storage)).toEqual(activeMeet);
+    });
+
+    it("round-trips a manually scored dive without a catalog selection", () => {
+        const storage = makeStorage();
+        const manualMeet: RegularMeet = {
+            ...sampleMeet,
+            divers: [{
+                ...sampleMeet.divers[0],
+                schedule: [{
+                    id: "manual-dive-1",
+                    catalogKey: null,
+                    difficulty: 2.1,
+                    judgeScores: [4, 5, 6],
+                }],
+            }],
+        };
+
+        expect(saveRegularMeet(manualMeet, storage)).toBe(true);
+        expect(loadRegularMeet(storage)).toEqual(manualMeet);
     });
 
     it.each([

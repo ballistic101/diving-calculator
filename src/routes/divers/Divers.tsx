@@ -4,6 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import Add from '@mui/icons-material/Add';
 import DeleteOutlined from '@mui/icons-material/DeleteOutlined';
 import EditOutlined from '@mui/icons-material/EditOutlined';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import {
@@ -22,9 +27,10 @@ import {
     verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import type { MeetDiver } from '../../models/RegularMeet';
+import type { MeetDiver, RegularMeet } from '../../models/RegularMeet';
 import { loadRegularMeet, saveRegularMeet } from '../../services/regularMeetStorage';
 import { createStableId } from '../../utils/createStableId';
+import { getMeetDivePositions, resetMeetProgress } from '../../utils/meetScoring';
 import { getNextDiverName, moveDiverToIndex } from '../../utils/meetRoster';
 import DiverEditorDialog from './DiverEditorDialog';
 
@@ -62,10 +68,12 @@ function SortableDiverRow({ diver, onEdit, onRemove }: SortableDiverRowProps) {
             >
                 <span aria-hidden="true" className="divers-page__grip-icon" />
             </button>
-            <span className="divers-page__name">{diver.name}</span>
-            <span className="divers-page__affiliation">
-                {diver.isHome ? 'Home' : 'Away'} team
-            </span>
+            <div className="divers-page__identity">
+                <span className="divers-page__name">{diver.name}</span>
+                <span className="divers-page__affiliation">
+                    {diver.isHome ? 'Home' : 'Away'} team
+                </span>
+            </div>
             <div className="divers-page__row-actions">
                 <Tooltip title="Edit diver">
                     <IconButton
@@ -96,11 +104,32 @@ function Divers() {
     const [editingDiver, setEditingDiver] = useState<MeetDiver | null>(null);
     const [isAddingDiver, setIsAddingDiver] = useState(false);
     const [saveFailed, setSaveFailed] = useState(false);
+    const [isResetDialogOpen, setIsResetDialogOpen] = useState(false);
 
-    const commitDivers = (divers: MeetDiver[]) => {
-        const nextMeet = { ...meet, divers };
+    const commitMeet = (nextMeet: RegularMeet) => {
         setMeet(nextMeet);
         setSaveFailed(!saveRegularMeet(nextMeet));
+    };
+
+    const commitDivers = (divers: MeetDiver[]) => {
+        commitMeet({ ...meet, divers });
+    };
+
+    const startOrContinueMeet = () => {
+        if (!meet.started) {
+            commitMeet({
+                ...meet,
+                started: true,
+                currentPosition: getMeetDivePositions(meet.divers)[0] ?? null,
+            });
+        }
+
+        navigate('/meet');
+    };
+
+    const resetMeet = () => {
+        commitMeet(resetMeetProgress(meet));
+        setIsResetDialogOpen(false);
     };
 
     const saveDiver = (name: string, isHome: boolean, schedule: MeetDiver['schedule']) => {
@@ -193,12 +222,21 @@ function Divers() {
                 <button
                     className="divers-page__start-button"
                     disabled={!hasScheduledDives}
-                    onClick={() => navigate('/meet')}
+                    onClick={startOrContinueMeet}
                     type="button"
                 >
-                    Start meet
+                    {meet.started ? 'Continue meet' : 'Start meet'}
                 </button>
-                {!hasScheduledDives && (
+                {meet.started && (
+                    <button
+                        className="divers-page__reset-button"
+                        onClick={() => setIsResetDialogOpen(true)}
+                        type="button"
+                    >
+                        Reset meet
+                    </button>
+                )}
+                {!hasScheduledDives && !meet.started && (
                     <p>Add at least one scheduled dive to start the meet.</p>
                 )}
             </section>
@@ -220,6 +258,28 @@ function Divers() {
                     }}
                     onSave={saveDiver}
                 />
+            )}
+            {isResetDialogOpen && (
+                <Dialog
+                    aria-labelledby="reset-meet-title"
+                    open
+                    onClose={() => setIsResetDialogOpen(false)}
+                >
+                    <DialogTitle id="reset-meet-title">Are you sure?</DialogTitle>
+                    <DialogContent>
+                        Reset the meet scores and return to setup? Dive selections and difficulty values will be kept.
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setIsResetDialogOpen(false)}>Cancel</Button>
+                        <Button
+                            className="divers-page__reset-confirm"
+                            onClick={resetMeet}
+                            variant="contained"
+                        >
+                            Reset meet
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             )}
         </main>
     );
