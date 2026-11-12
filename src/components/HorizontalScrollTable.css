@@ -1,0 +1,25 @@
+.horizontal-scroll-table {
+    position: relative;
+    min-width: 0;
+}
+
+.horizontal-scroll-table__hint {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .horizontal-scroll-table__hint {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        width: 2rem;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 0.1rem;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.96) 40%);
+        color: #355fa3;
+        pointer-events: none;
+    }
+}

@@ -27,6 +27,10 @@ describe("getMeetDivePositions", () => {
             { diverId: "diver-2", roundIndex: 0 },
             { diverId: "diver-1", roundIndex: 1 },
             { diverId: "diver-2", roundIndex: 1 },
+            ...Array.from({ length: 4 }, (_, index) => [
+                { diverId: "diver-1", roundIndex: index + 2 },
+                { diverId: "diver-2", roundIndex: index + 2 },
+            ]).flat(),
         ]);
     });
 
@@ -57,10 +61,14 @@ describe("getMeetDivePositions", () => {
             { diverId: "diver-2", roundIndex: 0 },
             { diverId: "diver-1", roundIndex: 1 },
             { diverId: "diver-2", roundIndex: 1 },
+            ...Array.from({ length: 4 }, (_, index) => [
+                { diverId: "diver-1", roundIndex: index + 2 },
+                { diverId: "diver-2", roundIndex: index + 2 },
+            ]).flat(),
         ]);
     });
 
-    it("includes all diver positions through the last configured round", () => {
+    it("includes every diver in all six rounds through manual positions", () => {
         const divers: MeetDiver[] = [
             {
                 id: "diver-1",
@@ -76,12 +84,27 @@ describe("getMeetDivePositions", () => {
             },
         ];
 
-        expect(getMeetDivePositions(divers)).toEqual([
+        expect(getMeetDivePositions(divers)).toHaveLength(12);
+        expect(getMeetDivePositions(divers).slice(0, 4)).toEqual([
             { diverId: "diver-1", roundIndex: 0 },
             { diverId: "diver-2", roundIndex: 0 },
             { diverId: "diver-1", roundIndex: 1 },
             { diverId: "diver-2", roundIndex: 1 },
         ]);
+    });
+
+    it("creates six manual scoring turns for every diver without scheduled dives", () => {
+        const divers: MeetDiver[] = [
+            { id: "diver-1", name: "Diver 1", isHome: true, schedule: [] },
+            { id: "diver-2", name: "Diver 2", isHome: false, schedule: [] },
+        ];
+
+        expect(getMeetDivePositions(divers)).toEqual(
+            Array.from({ length: 6 }, (_, roundIndex) => [
+                { diverId: "diver-1", roundIndex },
+                { diverId: "diver-2", roundIndex },
+            ]).flat(),
+        );
     });
 });
 

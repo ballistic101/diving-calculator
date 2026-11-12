@@ -169,7 +169,7 @@ function Divers() {
     };
 
     const editorOpen = isAddingDiver || editingDiver !== null;
-    const hasScheduledDives = meet.divers.some((diver) => diver.schedule.some((dive) => dive !== null));
+    const hasDivers = meet.divers.length > 0;
 
     return (
         <main className="divers-page">
@@ -221,7 +221,7 @@ function Divers() {
             <section className="divers-page__start" aria-label="Start meet">
                 <button
                     className="divers-page__start-button"
-                    disabled={!hasScheduledDives}
+                    disabled={!hasDivers}
                     onClick={startOrContinueMeet}
                     type="button"
                 >
@@ -236,8 +236,8 @@ function Divers() {
                         Reset meet
                     </button>
                 )}
-                {!hasScheduledDives && !meet.started && (
-                    <p>Add at least one scheduled dive to start the meet.</p>
+                {!hasDivers && !meet.started && (
+                    <p>Add at least one diver to start the meet.</p>
                 )}
             </section>
             {saveFailed && (

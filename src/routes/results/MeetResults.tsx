@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import HorizontalScrollTable from '../../components/HorizontalScrollTable';
 import { DiveTypes } from '../../constants/DiveTypes';
 import { MAX_MEET_ROUNDS } from '../../models/RegularMeet';
 import { loadRegularMeet } from '../../services/regularMeetStorage';
@@ -25,16 +26,21 @@ function MeetResults() {
                         return (
                             <section className="meet-results__diver" key={diver.id}>
                                 <div className="meet-results__diver-heading">
-                                    <div>
+                                    <div className="meet-results__identity">
                                         <h2>{diver.name}</h2>
-                                        <p>{diver.isHome ? 'Home team' : 'Away team'}</p>
+                                        <p className={`meet-results__affiliation ${diver.isHome ? 'meet-results__affiliation--home' : 'meet-results__affiliation--away'}`}>
+                                            {diver.isHome ? 'Home team' : 'Away team'}
+                                        </p>
                                     </div>
                                     <p className="meet-results__final-total">
                                         <span>Final total</span>
                                         <strong>{finalTotal.toFixed(2)}</strong>
                                     </p>
                                 </div>
-                                <div className="meet-results__table-wrap">
+                                <HorizontalScrollTable
+                                    ariaLabel={`${diver.name} results`}
+                                    className="meet-results__table-wrap"
+                                >
                                     <table>
                                         <thead>
                                             <tr>
@@ -79,7 +85,7 @@ function MeetResults() {
                                             })}
                                         </tbody>
                                     </table>
-                                </div>
+                                </HorizontalScrollTable>
                             </section>
                         );
                     })}

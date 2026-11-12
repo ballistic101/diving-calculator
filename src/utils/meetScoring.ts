@@ -3,13 +3,8 @@ import type { MeetDivePosition, MeetDiver, RegularMeet } from "../models/Regular
 
 export function getMeetDivePositions(divers: MeetDiver[]): MeetDivePosition[] {
     const positions: MeetDivePosition[] = [];
-    const lastScheduledRound = divers.reduce((lastRound, diver) => (
-        diver.schedule.reduce((lastDiverRound, dive, roundIndex) => (
-            dive === null || dive === undefined ? lastDiverRound : Math.max(lastDiverRound, roundIndex)
-        ), lastRound)
-    ), -1);
 
-    for (let roundIndex = 0; roundIndex <= lastScheduledRound && roundIndex < MAX_MEET_ROUNDS; roundIndex += 1) {
+    for (let roundIndex = 0; roundIndex < MAX_MEET_ROUNDS; roundIndex += 1) {
         for (const diver of divers) {
             positions.push({ diverId: diver.id, roundIndex });
         }

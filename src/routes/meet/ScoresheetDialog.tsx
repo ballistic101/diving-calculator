@@ -4,6 +4,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import HorizontalScrollTable from '../../components/HorizontalScrollTable';
 import { DiveTypes } from '../../constants/DiveTypes';
 import { MAX_MEET_ROUNDS } from '../../models/RegularMeet';
 import type { MeetDiver } from '../../models/RegularMeet';
@@ -44,7 +45,10 @@ function ScoresheetDialog({ divers, initialDiverId, onClose }: ScoresheetDialogP
                 <p className="scoresheet__affiliation">
                     {selectedDiver.isHome ? 'Home team' : 'Away team'}
                 </p>
-                <div className="scoresheet__table-wrap">
+                <HorizontalScrollTable
+                    ariaLabel="Scoresheet"
+                    className="scoresheet__table-wrap"
+                >
                     <table className="scoresheet__table">
                         <thead>
                             <tr>
@@ -89,7 +93,7 @@ function ScoresheetDialog({ divers, initialDiverId, onClose }: ScoresheetDialogP
                             })}
                         </tbody>
                     </table>
-                </div>
+                </HorizontalScrollTable>
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose}>Close</Button>

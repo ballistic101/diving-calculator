@@ -41,9 +41,29 @@
     font-size: 1.2rem;
 }
 
-.meet-results__diver-heading p {
-    margin: 0.25rem 0 0;
+.meet-results__identity {
+    display: flex;
+    min-width: 0;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.meet-results__affiliation {
+    flex: none;
+    margin: 0;
+    padding: 0.2rem 0.45rem;
     color: #4a6068;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.meet-results__affiliation--home {
+    background: #dcedf5;
+}
+
+.meet-results__affiliation--away {
+    background: #fff;
 }
 
 .meet-results__final-total {
